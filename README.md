@@ -1,15 +1,15 @@
 # databases
 
-### Table of Contents
+## Table of Contents
 
-	1. [Description of the Organization](#description-of-the-organization)
-	2. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
-	3. [Data Structure Diagram (DSD)](#data-structure-diagram-dsd)
-	4. [Organization's Entities and Relationships](#organizations-entities-and-relationships)
-	5. [Create Table Script](#create-table-script)
-	6. [Data Entry](#data-entry)
-	7. [Drop Table Script](#drop-table-script)
-	8. [Backup and Test](#backup-and-test)
+1. [Description of the Organization](#description-of-the-organization)
+2. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
+3. [Data Structure Diagram (DSD)](#data-structure-diagram-dsd)
+4. [Organization's Entities and Relationships](#organizations-entities-and-relationships)
+5. [Create Table Script](#create-table-script)
+6. [Data Entry](#data-entry)
+7. [Drop Table Script](#drop-table-script)
+8. [Backup and Test](#backup-and-test)
 
 ### Description of the Organization
 
