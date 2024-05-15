@@ -25,7 +25,7 @@ Overall, XYZ Bank is committed to upholding the highest standards of integrity, 
 
 The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustrates the entities and their relationships within the database schema.
 
-![Project Photo](Images\ERD.png)
+![Project Photo]("Images\ERD.png")
 #### Description of Entities:
 
 1. **Account (Regular Entity)**: 
