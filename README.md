@@ -33,7 +33,6 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
    - The `Account` entity represents the bank accounts themselves. 
    - Attributes include:
      - `AccountID` (primary key): Unique identifier for the account.
-     - `AccountType`: Type of the account (e.g., checking, savings).
      - `Balance`: Current balance of the account.
      - `DateOpened`: Date when the account was opened.
      - `AccountStatus`: Status of the account (e.g., active, closed).
@@ -66,30 +65,20 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
      - `BranchAddress`: Address of the branch.
      - `BranchPhoneNumber`: Phone number of the branch.
 
-5. **Employee (Regular Entity)**: 
-   - The `Employee` entity represents the bank employees who manage the accounts.
+5. **DirectDebit (Regular Entity)**: 
+   - The `DirectDebit` entity represents the [complite].
    - Attributes include:
-     - `EmployeeID` (primary key): Unique identifier for the employee.
-     - `FirstName`: First name of the employee.
-     - `LastName`: Last name of the employee.
-     - `Position`: Position of the employee within the bank.
-     - `BranchID`: Foreign key referencing the branch where the employee works.
+     - `IDDebit` (primary key): Unique identifier for the DirectDebit.
+     - `StartDate`:  [complite].
+     - `TypeDebit`:  [complite].
+     - `Amount`: [complite].
 
-6. **AccountOwner (Associative Entity)**: 
-   - The `AccountOwner` entity is an associative entity that links the `Customer` and `Account` entities, representing the ownership of accounts by customers.
-   - Attributes include:
-     - `CustomerID`: Foreign key referencing the customer who owns the account.
-     - `AccountID`: Foreign key referencing the account owned by the customer.
-     - `DateAccountOpened`: Date when the account was opened by the customer.
+6. **P **: 
+   
 
 #### Description of Relationships:
 
-- **Account-Customer (M:N)**: Each account can have multiple customers, and each customer can have multiple accounts.
-- **Transaction-Account (1:N)**: Each transaction is associated with one account, but an account can have multiple transactions.
-- **Employee-Branch (1:N)**: Each employee works at one branch, but each branch can have multiple employees.
-- **Account-Branch (1:N)**: Each account is associated with one branch, but a branch can have multiple accounts.
-- **Employee-Account (1:N)**: Each employee manages multiple accounts, but each account is managed by one employee.
-- **AccountOwner-Customer (1:M)**: Each account is owned by one customer, but each customer can own multiple accounts.
+
 
 ### Data Structure Diagram (DSD)
 
