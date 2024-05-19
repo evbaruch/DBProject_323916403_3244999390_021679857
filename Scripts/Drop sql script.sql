@@ -1,0 +1,8 @@
+DROP TABLE Transactions;
+DROP TABLE DirectDebit;
+DROP TABLE Rel5;
+DROP TABLE BlackList;
+DROP TABLE Vip;
+DROP TABLE Account;
+DROP TABLE Customer;
+DROP TABLE Branch;
