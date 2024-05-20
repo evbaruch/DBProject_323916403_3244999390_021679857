@@ -487,9 +487,3 @@ Let's see for every schema:
 
 ![part-one](Images/Desc_part_1.png)
 ![part-two](Images/Desc_part_2.png)
-
-<div style="color: blue;">
-
-# This is a blue header
-
-</div>
