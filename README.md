@@ -6,10 +6,11 @@
 2. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
 3. [Data Structure Diagram (DSD)](#data-structure-diagram-dsd)
 4. [Organization's Entities and Relationships](#organizations-entities-and-relationships)
-5. [Create Table Script](#create-table-script)
-6. [Data Entry](#data-entry)
-7. [Drop Table Script](#drop-table-script)
-8. [Backup and Test](#backup-and-test)
+5. [Third Normal Form (3NF)](#third-normal-form-3nf)
+6. [Create Table Script](#create-table-script)
+7. [Data Entry](#data-entry)
+8. [Drop Table Script](#drop-table-script)
+9. [Backup and Test](#backup-and-test)
 
 ## Description of the Organization
 
@@ -172,5 +173,44 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 - Branch to Account: 1:M
 - Account to DirectDebit: 1:M
 - Customer to Vip and BlackList: Inheritance
+
+## Third Normal Form (3NF)
+
+By definition, schema R is in Third Normal Form (3NF) if for every X->Y in F, whene F is the set of dependencies in R, one of the following holds:
+ - X is a superkey of R or
+ - for each A in Y, either A in X or A is an attribute in a key
+
+  Let's see for every schema:
+
+- **Customer**
+  - Dependencies:
+    - CustomerID -> FirstName, LastName, Adrress, Email, DateOfBirth, ContactNumber
+
+  CustomerID is a superkey of Customer, conclusion: Customer is in 3NF.
+
+- **Account**
+  - Dependencies:
+    - AccountID -> Balance, DateOpned, AccountStatus
+
+  AccountID is a superkey of Account, conclusion: Account is in 3NF.
+
+- **Transaction**
+  - Dependencies:
+    - TransactionID -> TransactionType, TransactionDate, Amount, AccountID
+
+  TrasactionID is a superkey of Transaction, conclusion: Trasaction is in 3NF.
+
+- **Branch**
+  - Dependencies:
+    - BranchID -> BranchName, BranchAddress, BranchPhoneNumber
+
+  BranchID is a superkey of Branch, conclusion: Branch is in 3NF.
+
+- **DirectDebit**
+  - Dependencies:
+    - IDDebit -> StartDate, TypeDebit, Amount, IDAccount
+
+  IDDebit is a superkey of DirectDebit, conclusion: DirectDebit is in 3NF.
+
 
 
