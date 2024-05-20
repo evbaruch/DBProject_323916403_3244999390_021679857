@@ -28,7 +28,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 
 ![Project Photo](Images/ERD-nonWeak.png)
 
-![dds-lite](Images/ERD(dds-lite).png)
+![dds-lite](<Images/ERD(dds-lite).png>)
 
 ## Database Schema
 
@@ -113,61 +113,69 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 ![DSD](Images/DSD.png)
 
 - **Customer**
-  - Attributes: 
-      - CustomerID (PK)
-      - FirstName
-      - LastName 
-      - DateOfBirth 
-      - Address
-      - ContactNumber 
-      - Email
+
+  - Attributes:
+    - CustomerID (PK)
+    - FirstName
+    - LastName
+    - DateOfBirth
+    - Address
+    - ContactNumber
+    - Email
 
 - **Account**
+
   - Attributes:
-      - AccountID (PK)
-      - Balance
-      - DateOpened
-      - AccountStatus
+    - AccountID (PK)
+    - Balance
+    - DateOpened
+    - AccountStatus
 
 - **Transaction**
+
   - Attributes:
-      - TransactionID (PK)
-      - AccountID (FK)
-      - TransactionType
-      - Amount
-      - TransactionDate
+    - TransactionID (PK)
+    - AccountID (FK)
+    - TransactionType
+    - Amount
+    - TransactionDate
 
 - **Branch**
+
   - Attributes:
-      - BranchID (PK)
-      - BranchName
-      - BranchAddress
-      - BranchPhoneNumber
+    - BranchID (PK)
+    - BranchName
+    - BranchAddress
+    - BranchPhoneNumber
 
 - **DirectDebit**
+
   - Attributes:
-      - IDDebit (PK)
-      - StartDate
-      - TypeDebit
-      - Amount
-      - IDAccount (FK)
-      - IDBranch (FK)
+    - IDDebit (PK)
+    - StartDate
+    - TypeDebit
+    - Amount
+    - IDAccount (FK)
+    - IDBranch (FK)
 
 - **Rel5**
+
   - Attributes:
-      - CustomerID (PK, FK1)
-      - AccountID (PK, FK2)
+    - CustomerID (PK, FK1)
+    - AccountID (PK, FK2)
 
 - **Vip (Inherits from Customer)**
+
   - Attributes:
-      - PositiveInterest
+    - PositiveInterest
 
 - **BlackList (Inherits from Customer)**
   - Attributes:
-      - NegetiveInterest
-      - MinimumMinus
+    - NegetiveInterest
+    - MinimumMinus
 
 ## Relationships
+
 - Customer to Account: M:M (via Rel5)
 - Account to Transaction: 1:M
 - Branch to Account: 1:M
@@ -176,41 +184,44 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 ## Third Normal Form (3NF)
 
-By definition, schema R is in Third Normal Form (3NF) if for every X->Y in F, whene F is the set of dependencies in R, one of the following holds:
- - X is a superkey of R or
- - for each A in Y, either A in X or A is an attribute in a key
+By definition, schema R is in Third Normal Form (3NF) if for every X->Y in F, where F is the set of dependencies in R, one of the following holds:
 
-  Let's see for every schema:
+- X is a superkey of R, or
+- for each A in Y, either A is in X or A is an attribute in a key
+
+Let's see for every schema:
 
 - **Customer**
-  - Dependencies:
-    - CustomerID -> FirstName, LastName, Adrress, Email, DateOfBirth, ContactNumber
 
-  CustomerID is a superkey of Customer, conclusion: Customer is in 3NF.
+  - Dependencies:
+    - CustomerID -> FirstName, LastName, Address, Email, DateOfBirth, ContactNumber
+
+  CustomerID is a superkey of Customer. Conclusion: Customer is in 3NF.
 
 - **Account**
-  - Dependencies:
-    - AccountID -> Balance, DateOpned, AccountStatus
 
-  AccountID is a superkey of Account, conclusion: Account is in 3NF.
+  - Dependencies:
+    - AccountID -> Balance, DateOpened, AccountStatus
+
+  AccountID is a superkey of Account. Conclusion: Account is in 3NF.
 
 - **Transaction**
+
   - Dependencies:
     - TransactionID -> TransactionType, TransactionDate, Amount, AccountID
 
-  TrasactionID is a superkey of Transaction, conclusion: Trasaction is in 3NF.
+  TransactionID is a superkey of Transaction. Conclusion: Transaction is in 3NF.
 
 - **Branch**
+
   - Dependencies:
     - BranchID -> BranchName, BranchAddress, BranchPhoneNumber
 
-  BranchID is a superkey of Branch, conclusion: Branch is in 3NF.
+  BranchID is a superkey of Branch. Conclusion: Branch is in 3NF.
 
 - **DirectDebit**
+
   - Dependencies:
     - IDDebit -> StartDate, TypeDebit, Amount, IDAccount
 
-  IDDebit is a superkey of DirectDebit, conclusion: DirectDebit is in 3NF.
-
-
-
+  IDDebit is a superkey of DirectDebit. Conclusion: DirectDebit is in 3NF.
