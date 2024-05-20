@@ -184,6 +184,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 ## Third Normal Form (3NF)
 
+> 3NF is a database normalization form that is used to reduce data redundancy and improve data integrity. A schema is in 3NF if it is in 2NF and no non-prime attribute is transitively dependent on any superkey.
+
 By definition, schema R is in Third Normal Form (3NF) if for every X->Y in F, where F is the set of dependencies in R, one of the following holds:
 
 - X is a superkey of R, or
@@ -227,6 +229,21 @@ Let's see for every schema:
   IDDebit is a superkey of DirectDebit. Conclusion: DirectDebit is in 3NF.
 
 ## Create Table Script
+
+> The create table script is used to define the structure of the tables in the database. It includes the table name, column names, data types, constraints, and relationships between tables.
+
+```markdown
+| Table Name  | Description                                                                          |
+| ----------- | ------------------------------------------------------------------------------------ |
+| Customer    | Represents the bank's customers who hold accounts with the bank.                     |
+| Account     | Represents the bank accounts held by customers.                                      |
+| Transaction | Represents the transactions associated with customer accounts.                       |
+| Branch      | Represents the bank branches where customers can access banking services.            |
+| DirectDebit | Represents the direct debit arrangements set up by customers for recurring payments. |
+| Rel5        | Represents the relationship between customers and accounts.                          |
+| Vip         | Represents VIP customers who have special privileges and benefits.                   |
+| BlackList   | Represents customers who have been blacklisted due to certain reasons.               |
+```
 
 ```sql
   --
@@ -412,6 +429,7 @@ Let's see for every schema:
 ```
 
 ### desc command
+
 > The desc command is used to describe the structure of a table in a database. It provides information about the columns, data types, constraints, and other attributes of the table.
 
 ![part-one](Images/Desc_part_1.png)
