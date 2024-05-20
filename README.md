@@ -28,7 +28,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 
 ![Project Photo](Images/ERD-nonWeak.png)
 
-![dds-lite](<Images/ERD(dds-lite).png>>)
+![dds-lite](<Images/ERD(dds-lite).png>)
 
 ## Database Schema
 
