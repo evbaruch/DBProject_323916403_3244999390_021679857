@@ -3,14 +3,43 @@
 ## Table of Contents
 
 1. [Description of the Organization](#description-of-the-organization)
+
 2. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
+
 3. [Data Structure Diagram (DSD)](#data-structure-diagram-dsd)
-4. [Organization's Entities and Relationships](#organizations-entities-and-relationships)
-5. [Third Normal Form (3NF)](#third-normal-form-3nf)
-6. [Create Table Script](#create-table-script)
-7. [Data Entry](#data-entry)
-8. [Drop Table Script](#drop-table-script)
-9. [Backup and Test](#backup-and-test)
+
+4. [Database Schema](#database-schema)
+   <details>
+   <summary>Subsections</summary>
+
+   - [Customer](#customer)
+   - [Account](#account)
+   - [Transaction](#transaction)
+   - [Branch](#branch)
+   - [Direct Debit](#directdebit)
+   - [VIP](#vip-inherits-from-customer)
+   - [Blacklist](#blacklist-inherits-from-customer)
+
+   </details>
+
+5. [Relationships](#relationships)
+
+6. [Third Normal Form (3NF)](#third-normal-form-3nf)
+
+7. [Create Table Script](#create-table-script)
+   <details>
+   <summary>Subsections</summary>
+
+   - [DESC Command](#desc-command)
+   - [Tables](#tables)
+
+   </details>
+
+8. [Data Entry](#data-entry)
+
+9. [Drop Table Script](#drop-table-script)
+
+10. [Backup and Test](#backup-and-test)
 
 ## Description of the Organization
 
