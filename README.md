@@ -487,3 +487,8 @@ Let's see for every schema:
 
 ![part-one](Images/Desc_part_1.png)
 ![part-two](Images/Desc_part_2.png)
+
+# tables
+
+> The tables in the database are as follows:
+> ![tables](Images/tables.bmp)
