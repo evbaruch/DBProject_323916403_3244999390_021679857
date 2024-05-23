@@ -591,3 +591,15 @@ Let's see for every schema:
 [here](StageOne/StageOne/Scripts/dropTables.sql)
 
 ## Backup and Test
+> The backup and test process involves creating a backup of the database and testing the database to ensure that it is functioning correctly.
+
+- Backup SQL script:
+[here](StageOne/Scripts/backupSql.sql)
+
+- Backup PL/SQL script:
+[here](StageOne/Scripts/backupPlSql.sql)
+
+- Backup pde script:
+[here](StageOne/Scripts/backupPLSQL.pde)
+
+
