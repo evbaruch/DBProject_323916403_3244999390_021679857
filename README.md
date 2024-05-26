@@ -584,6 +584,20 @@ Let's see for every schema:
 
 > ![Rel5 Table](StageOne/Images/insertTabls/DataGenerator/Rel5/DataGeneratorRel5Sql.png)
 
+### Mockaroo images
+
+#### Direct Debit Table
+
+> ![Direct Debit Table](StageOne/Images/insertTabls/Mockaroo/DirectDebit/MockarooDirectDebitDefine.png)
+
+> ![Direct Debit Table](StageOne/Images/insertTabls/Mockaroo/DirectDebit/MockarooDirectDebitPreview.png)
+
+#### Transaction Table
+
+> ![Transaction Table](StageOne/Images/insertTabls/Mockaroo/Transactions/MockarooTransactionsDefine.png)
+
+> ![Transaction Table](StageOne/Images/insertTabls/Mockaroo/Transactions/MockarooTransactionsPreview.png)
+
 ## Drop Table Script
 
 > The drop table script is used to remove tables from the database. It includes the table name and the command to drop the table.
@@ -591,15 +605,14 @@ Let's see for every schema:
 [here](StageOne/StageOne/Scripts/dropTables.sql)
 
 ## Backup and Test
+
 > The backup and test process involves creating a backup of the database and testing the database to ensure that it is functioning correctly.
 
 - Backup SQL script:
-[here](StageOne/Scripts/backupSql.sql)
+  [here](StageOne/Scripts/backupSql.sql)
 
 - Backup PL/SQL script:
-[here](StageOne/Scripts/backupPlSql.sql)
+  [here](StageOne/Scripts/backupPlSql.sql)
 
 - Backup pde script:
-[here](StageOne/Scripts/backupPLSQL.pde)
-
-
+  [here](StageOne/Scripts/backupPLSQL.pde)
