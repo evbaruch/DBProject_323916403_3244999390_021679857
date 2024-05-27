@@ -3,7 +3,7 @@
 ### presented by: **Account Department**
 
 - head of team: **Evyatar Baruch**
-- head sientist: **Ephraim Levi**
+- head scientist: **Ephraim Levi**
 - head of database: **Yehuda Pilant**
 
 ## Table of Contents
