@@ -1,5 +1,5 @@
 ﻿prompt PL/SQL Developer Export Tables for user SYS@XE
-prompt Created by Evyatar Bruch on יום חמישי 23 מאי 2024
+prompt Created by Evyatar Bruch on 
 set feedback off
 set define off
 
@@ -26,33 +26,9 @@ create table BRANCH
   branchname        VARCHAR2(20) not null,
   branchaddress     VARCHAR2(20) not null,
   branchphonenumber NUMBER not null
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 alter table BRANCH
-  add constraint PK_BRANCH primary key (BRANCHID)
-  using index 
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+  add constraint PK_BRANCH primary key (BRANCHID);
 grant select, insert, update, delete, references, alter, index, debug, read on BRANCH to PUBLIC;
 
 prompt Creating ACCOUNT...
@@ -63,33 +39,9 @@ create table ACCOUNT
   dateopened    DATE not null,
   accountstatus VARCHAR2(20) not null,
   branchid      NUMBER(38)
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 alter table ACCOUNT
-  add constraint PK_ACCOUNT primary key (ACCOUNTID)
-  using index 
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+  add constraint PK_ACCOUNT primary key (ACCOUNTID);
 alter table ACCOUNT
   add constraint FK_ACCOUNT foreign key (BRANCHID)
   references BRANCH (BRANCHID);
@@ -101,33 +53,9 @@ create table BLACKLIST
   accountid        NUMBER(38) not null,
   negetiveinterest FLOAT not null,
   minimumminus     NUMBER not null
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 alter table BLACKLIST
-  add constraint PK_BLACKLIST primary key (ACCOUNTID)
-  using index 
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+  add constraint PK_BLACKLIST primary key (ACCOUNTID);
 alter table BLACKLIST
   add constraint FK_BLACKLIST foreign key (ACCOUNTID)
   references ACCOUNT (ACCOUNTID);
@@ -143,33 +71,9 @@ create table CUSTOMER
   address       VARCHAR2(20) not null,
   contactnumber NUMBER not null,
   email         VARCHAR2(40) not null
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 alter table CUSTOMER
-  add constraint PK_CUSTOMER primary key (CUSTOMERID)
-  using index 
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+  add constraint PK_CUSTOMER primary key (CUSTOMERID);
 grant select, insert, update, delete, references, alter, index, debug, read on CUSTOMER to PUBLIC;
 
 prompt Creating REL5...
@@ -177,33 +81,9 @@ create table REL5
 (
   customerid NUMBER(38) not null,
   accountid  NUMBER(38) not null
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 alter table REL5
-  add constraint PK_REL5 primary key (CUSTOMERID, ACCOUNTID)
-  using index 
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+  add constraint PK_REL5 primary key (CUSTOMERID, ACCOUNTID);
 alter table REL5
   add constraint FK_REL5 foreign key (CUSTOMERID)
   references CUSTOMER (CUSTOMERID) on delete cascade;
@@ -220,33 +100,9 @@ create table TRANSACTIONS
   amount          NUMBER not null,
   transactiondate DATE not null,
   accountid       NUMBER(38)
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 alter table TRANSACTIONS
-  add constraint PK_TRANSACTIONS primary key (TRANSACTIONID)
-  using index 
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+  add constraint PK_TRANSACTIONS primary key (TRANSACTIONID);
 alter table TRANSACTIONS
   add constraint FK_TRANSACTIONS foreign key (ACCOUNTID)
   references ACCOUNT (ACCOUNTID);
@@ -257,33 +113,9 @@ create table VIP
 (
   accountid        NUMBER(38) not null,
   positiveinterest FLOAT not null
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
 alter table VIP
-  add constraint PK_VIP primary key (ACCOUNTID)
-  using index 
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+  add constraint PK_VIP primary key (ACCOUNTID);
 alter table VIP
   add constraint FK_VIP foreign key (ACCOUNTID)
   references ACCOUNT (ACCOUNTID);
@@ -302,43 +134,9 @@ create table XSTREAM$_SYSGEN_OBJS
   spare4       TIMESTAMP(6),
   spare5       VARCHAR2(4000),
   spare6       VARCHAR2(4000)
-)
-tablespace SYSTEM
-  pctfree 10
-  pctused 40
-  initrans 1
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
-create index I_XSTREAM_SYSGEN_OBJS1 on XSTREAM$_SYSGEN_OBJS (SERVER_NAME)
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
-create index I_XSTREAM_SYSGEN_OBJS2 on XSTREAM$_SYSGEN_OBJS (OBJECT_OWNER, OBJECT_NAME, OBJECT_TYPE)
-  tablespace SYSTEM
-  pctfree 10
-  initrans 2
-  maxtrans 255
-  storage
-  (
-    initial 64K
-    next 1M
-    minextents 1
-    maxextents unlimited
-  );
+);
+create index I_XSTREAM_SYSGEN_OBJS1 on XSTREAM$_SYSGEN_OBJS (SERVER_NAME);
+create index I_XSTREAM_SYSGEN_OBJS2 on XSTREAM$_SYSGEN_OBJS (OBJECT_OWNER, OBJECT_NAME, OBJECT_TYPE);
 
 prompt Disabling triggers for BRANCH...
 alter table BRANCH disable all triggers;
