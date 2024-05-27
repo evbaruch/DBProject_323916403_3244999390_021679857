@@ -70,7 +70,9 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Customer
 
 - The Customer entity represents the bank's customers who hold accounts with the bank.
+
   **Attributes:**
+
   - **CustomerID (Primary Key):** Unique identifier for the customer.
   - **FirstName:** First name of the customer.
   - **LastName:** Last name of the customer.
@@ -82,7 +84,9 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Account
 
 - The Account entity represents the bank accounts held by customers.
+
   **Attributes:**
+
   - **AccountID (Primary Key):** Unique identifier for the account.
   - **Balance:** Current balance of the account.
   - **DateOpened:** Date when the account was opened.
@@ -91,7 +95,9 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Transaction
 
 - The Transaction entity represents the transactions associated with customer accounts.
+
   **Attributes:**
+
   - **TransactionID (Primary Key):** Unique identifier for the transaction.
   - **AccountID (Foreign Key):** References the AccountID of the associated account.
   - **TransactionType:** Type of the transaction (e.g., deposit, withdrawal).
@@ -101,7 +107,9 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Branch
 
 - The Branch entity represents the bank branches where customers can access banking services.
+
   **Attributes:**
+
   - **BranchID (Primary Key):** Unique identifier for the branch.
   - **BranchName:** Name of the branch.
   - **BranchAddress:** Address of the branch.
@@ -110,7 +118,9 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### DirectDebit
 
 - The DirectDebit entity represents the direct debit arrangements set up by customers for recurring payments.
+
   **Attributes:**
+
   - **IDDebit (Primary Key):** Unique identifier for the direct debit.
   - **StartDate:** Start date of the direct debit.
   - **TypeDebit:** Type of the direct debit.
@@ -121,14 +131,18 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Vip (Inherits from Customer)
 
 - The Vip entity represents VIP customers who have special privileges and benefits.
+
   **Attributes:**
+
   - Inherits all attributes from Customer.
   - **PositiveInterest:** Interest rate applied to VIP accounts.
 
 ### BlackList (Inherits from Customer)
 
 - The BlackList entity represents customers who have been blacklisted due to certain reasons.
+
   **Attributes:**
+  
   - Inherits all attributes from Customer.
   - **NegetiveInterest:** Interest rate applied to BlackList accounts.
   - **MinimumMinus:** Minimum balance allowed for BlackList accounts.
