@@ -91,7 +91,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Transaction
 
 - The Transaction entity represents the transactions associated with customer accounts.
-  **Attributes:**
+ - **Attributes:**
   - **TransactionID (Primary Key):** Unique identifier for the transaction.
   - **AccountID (Foreign Key):** References the AccountID of the associated account.
   - **TransactionType:** Type of the transaction (e.g., deposit, withdrawal).
@@ -101,7 +101,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Branch
 
 - The Branch entity represents the bank branches where customers can access banking services.
-  **Attributes:**
+ - **Attributes:**
   - **BranchID (Primary Key):** Unique identifier for the branch.
   - **BranchName:** Name of the branch.
   - **BranchAddress:** Address of the branch.
@@ -110,7 +110,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### DirectDebit
 
 - The DirectDebit entity represents the direct debit arrangements set up by customers for recurring payments.
-  **Attributes:**
+  -**Attributes:**
   - **IDDebit (Primary Key):** Unique identifier for the direct debit.
   - **StartDate:** Start date of the direct debit.
   - **TypeDebit:** Type of the direct debit.
@@ -121,14 +121,16 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 ### Vip (Inherits from Customer)
 
 - The Vip entity represents VIP customers who have special privileges and benefits.
-  **Attributes:**
+  
+  -**Attributes:**
   - Inherits all attributes from Customer.
   - **PositiveInterest:** Interest rate applied to VIP accounts.
 
 ### BlackList (Inherits from Customer)
 
 - The BlackList entity represents customers who have been blacklisted due to certain reasons.
-  **Attributes:**
+  
+  -**Attributes:**
   - Inherits all attributes from Customer.
   - **NegetiveInterest:** Interest rate applied to BlackList accounts.
   - **MinimumMinus:** Minimum balance allowed for BlackList accounts.
