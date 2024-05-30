@@ -40,7 +40,7 @@ record_count = 400
 account_data = generate_account_data(record_count)
 
 # Generate SQL statements
-schema_name = 'SYS'
+schema_name = ''
 table_name = 'ACCOUNT'
 sql_statements = generate_sql_insert_statements(account_data, schema_name, table_name)
 

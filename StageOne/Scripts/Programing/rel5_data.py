@@ -29,7 +29,7 @@ record_count = 400
 rel5_data = generate_rel5_data(record_count)
 
 # Generate SQL statements
-schema_name = 'SYS'
+schema_name = ''
 table_name = 'REL5'
 sql_statements = generate_sql_insert_statements(rel5_data, schema_name, table_name)
 

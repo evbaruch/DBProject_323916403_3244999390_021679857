@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2607
+Password=2410
 Database=
 DateFormat=
 CommitCount=0
@@ -12,7 +12,7 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=C##EVYATAR
+Owner=
 Name=TRANSACTIONS
 Count=400..500
 

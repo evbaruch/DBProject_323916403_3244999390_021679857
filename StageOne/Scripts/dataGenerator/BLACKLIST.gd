@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2552
+Password=2800
 Database=
 DateFormat=
 CommitCount=0
@@ -12,9 +12,9 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=C##EVYATAR
+Owner=
 Name=BLACKLIST
-Count=20
+Count=400
 
 [Record]
 Name=ACCOUNTID

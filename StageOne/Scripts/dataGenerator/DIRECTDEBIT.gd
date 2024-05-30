@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2033
+Password=2300
 Database=
 DateFormat=
 CommitCount=0
@@ -12,7 +12,7 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=C##EVYATAR
+Owner=
 Name=DIRECTDEBIT
 Count=400..500
 
