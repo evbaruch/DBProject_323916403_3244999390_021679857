@@ -24,11 +24,11 @@ def generate_account_data(record_count):
     return account_data
 
 # Function to generate SQL INSERT statements
-def generate_sql_insert_statements(data, schema_name, table_name):
+def generate_sql_insert_statements(data, table_name):
     sql_statements = []
     for i in range(len(data['ACCOUNTID'])):
         sql_statements.append(
-            f"INSERT INTO {schema_name}.{table_name} (ACCOUNTID, BALANCE, DATEOPENED, ACCOUNTSTATUS, BRANCHID)\n"
+            f"INSERT INTO {table_name} (ACCOUNTID, BALANCE, DATEOPENED, ACCOUNTSTATUS, BRANCHID)\n"
             f"VALUES ({data['ACCOUNTID'][i]}, {data['BALANCE'][i]}, "
             f"(SELECT TO_DATE('2000-01-01', 'YYYY-MM-DD') + {data['DATEOPENED_OFFSET'][i]} FROM dual), "
             f"'{data['ACCOUNTSTATUS'][i]}', {data['BRANCHID'][i]});"
@@ -40,9 +40,8 @@ record_count = 400
 account_data = generate_account_data(record_count)
 
 # Generate SQL statements
-schema_name = ''
 table_name = 'ACCOUNT'
-sql_statements = generate_sql_insert_statements(account_data, schema_name, table_name)
+sql_statements = generate_sql_insert_statements(account_data, table_name)
 
 # Write SQL statements to a file
 with open('insertTablsACCOUNT.sql', 'w') as sql_file:

@@ -15,11 +15,11 @@ def generate_rel5_data(record_count):
     return rel5_data
 
 # Function to generate SQL INSERT statements
-def generate_sql_insert_statements(data, schema_name, table_name):
+def generate_sql_insert_statements(data, table_name):
     sql_statements = []
     for i in range(len(data['CUSTOMERID'])):
         sql_statements.append(
-            f"INSERT INTO {schema_name}.{table_name} (CUSTOMERID, ACCOUNTID)\n"
+            f"INSERT INTO {table_name} (CUSTOMERID, ACCOUNTID)\n"
             f"VALUES ({data['CUSTOMERID'][i]}, {data['ACCOUNTID'][i]});"
         )
     return sql_statements
@@ -29,9 +29,8 @@ record_count = 400
 rel5_data = generate_rel5_data(record_count)
 
 # Generate SQL statements
-schema_name = ''
 table_name = 'REL5'
-sql_statements = generate_sql_insert_statements(rel5_data, schema_name, table_name)
+sql_statements = generate_sql_insert_statements(rel5_data, table_name)
 
 # Write SQL statements to a file
 with open('insertTablsREL5.sql', 'w') as sql_file:
