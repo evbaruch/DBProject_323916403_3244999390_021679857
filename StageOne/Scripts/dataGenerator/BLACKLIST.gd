@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2800
+Password=2498
 Database=
 DateFormat=
 CommitCount=0
@@ -20,7 +20,7 @@ Count=400
 Name=ACCOUNTID
 Type=NUMBER
 Size=38
-Data=Sequence(100100, [1], [100400])
+Data=Sequence(100000, 1, 100400)
 Master=
 
 [Record]
