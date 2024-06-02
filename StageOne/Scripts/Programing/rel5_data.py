@@ -7,9 +7,12 @@ def generate_rel5_data(record_count):
     account_id_start = 100000
     account_id_end = 100399
 
+    customer_ids = random.sample(range(customer_id_start, customer_id_end + 1), record_count)
+    account_ids = random.sample(range(account_id_start, account_id_end + 1), record_count)
+
     rel5_data = {
-        'CUSTOMERID': [random.randint(customer_id_start, customer_id_end) for _ in range(record_count)],
-        'ACCOUNTID': [random.randint(account_id_start, account_id_end) for _ in range(record_count)]
+        'CUSTOMERID': customer_ids,
+        'ACCOUNTID': account_ids
     }
 
     return rel5_data
@@ -36,4 +39,4 @@ sql_statements = generate_sql_insert_statements(rel5_data, table_name)
 with open('insertTablsREL5.sql', 'w') as sql_file:
     sql_file.write('\n'.join(sql_statements))
 
-print(f"Generated {record_count} records and saved to rel5_data.sql")
+print(f"Generated {record_count} records and saved to insertTablsREL5.sql")
