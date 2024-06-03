@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2600
+Password=2367
 Database=
 DateFormat=
 CommitCount=0
@@ -12,15 +12,15 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=SYS
+Owner=
 Name=BRANCH
-Count=400
+Count=420
 
 [Record]
 Name=BRANCHID
 Type=NUMBER
 Size=38
-Data=Sequence(100, [1], [999])
+Data=Sequence(100, 1, 999)
 Master=
 
 [Record]
@@ -33,7 +33,7 @@ Master=
 [Record]
 Name=BRANCHADDRESS
 Type=VARCHAR2
-Size=20
+Size=32
 Data=Address1
 Master=
 
