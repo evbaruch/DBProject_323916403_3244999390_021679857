@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2530
+Password=2057
 Database=
 DateFormat=
 CommitCount=0
@@ -12,15 +12,15 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=SYS
+Owner=
 Name=BLACKLIST
-Count=20
+Count=400
 
 [Record]
 Name=ACCOUNTID
 Type=NUMBER
 Size=38
-Data=Sequence(100100, [1], [100400])
+Data=Sequence(100001, 3, 999999)
 Master=
 
 [Record]

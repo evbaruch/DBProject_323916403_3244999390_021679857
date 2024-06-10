@@ -1,0 +1,33 @@
+VARIABLE minBalance NUMBER;
+VARIABLE maxBalance NUMBER;
+
+BEGIN
+  :minBalance := 1000;  -- Assign value to minBalance
+  :maxBalance := 5000;  -- Assign value to maxBalance
+END;
+/
+
+SELECT A.AccountID, A.Balance, A.DateOpened, A.AccountStatus, C.FirstName, C.LastName
+FROM Account A
+JOIN Rel5 R ON A.AccountID = R.AccountID
+JOIN Customer C ON R.CustomerID = C.CustomerID
+WHERE A.Balance BETWEEN :minBalance AND :maxBalance;
+
+-----------------------------------------------------------------
+
+VARIABLE startDate VARCHAR2(20);
+VARIABLE endDate VARCHAR2(20);
+
+-- Set the values of the variables
+EXEC :startDate := '2024-01-01';
+EXEC :endDate := '2024-12-31';
+
+-- Execute the query
+SELECT T.TransactionID, T.TransactionType, T.Amount, T.TransactionDate, A.AccountID, C.FirstName, C.LastName
+FROM Transactions T
+JOIN Account A ON T.AccountID = A.AccountID
+JOIN Rel5 R ON A.AccountID = R.AccountID
+JOIN Customer C ON R.CustomerID = C.CustomerID
+WHERE T.TransactionDate BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD') AND TO_DATE(:endDate, 'YYYY-MM-DD');
+
+-----------------------------------------------------------------

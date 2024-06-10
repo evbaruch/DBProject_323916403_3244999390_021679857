@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2222
+Password=2241
 Database=
 DateFormat=
 CommitCount=0
@@ -12,15 +12,15 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=SYS
+Owner=
 Name=VIP
-Count=50
+Count=400
 
 [Record]
 Name=ACCOUNTID
 Type=NUMBER
 Size=38
-Data=Sequence(100000, [1], [100400])
+Data=Sequence(100000, 3, 999999)
 Master=
 
 [Record]
