@@ -1,0 +1,11 @@
+DELETE FROM 
+    DirectDebit
+WHERE 
+    AccountID IN (
+        SELECT 
+            AccountID
+        FROM 
+            Account
+        WHERE 
+            AccountStatus = 'closed'
+    );

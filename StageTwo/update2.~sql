@@ -1,0 +1,16 @@
+UPDATE 
+    Vip
+SET 
+    PositiveInterest = PositiveInterest + 0.5
+WHERE 
+    AccountID IN (
+        SELECT 
+            a.AccountID
+        FROM 
+            Account a
+        JOIN 
+            Transactions t ON a.AccountID = t.AccountID
+        WHERE 
+            a.Balance > 10000
+            AND t.TransactionDate BETWEEN ADD_MONTHS(SYSDATE, -24) AND SYSDATE
+    );
