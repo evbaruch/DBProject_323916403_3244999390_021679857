@@ -409,7 +409,94 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 ### 2 delete
 
+1. **Delete Query 1:**
+
+   Story: The bank wants to remove customers from the blacklist whose negative interest rates are below the 25th percentile negative interest rate. This action is necessary to maintain an updated blacklist of customers with significant negative balances.
+
+   sql explanation: The query deletes customers from the BlackList table whose negative interest rates are below the 25th percentile negative interest rate. It uses a subquery to calculate the 25th percentile negative interest rate within the BlackList table and filters customers based on their negative interest rates being lower than the calculated threshold.
+
+   syntax explanation: The query uses the DELETE statement to remove records from the BlackList table based on a specified condition. It includes a subquery to calculate the 25th percentile negative interest rate within the BlackList table. The WHERE clause filters customers based on their negative interest rates being lower than the calculated threshold.
+
+   ```sql
+   DELETE FROM BlackList
+   WHERE NEGETIVEINTEREST < (
+       SELECT PERCENTILE_DISC(0.25) WITHIN GROUP (ORDER BY NEGETIVEINTEREST) -- Calculate the 25th percentile negative interest
+       FROM
+       BlackList
+       );
+   ```
+
+   This query deletes customers from the BlackList table whose negative interest rates are below the 25th percentile negative interest rate. It uses a subquery to calculate the 25th percentile negative interest rate within the BlackList table and filters customers based on their negative interest rates being lower than the calculated threshold.
+
+   file: [here](StageTwo/delete1.sql)
+
+2. **Delete Query 2:**
+
+   Story: The bank wants to remove direct debit arrangements for accounts that are closed. This action is necessary to ensure that direct debits are not processed for accounts that are no longer active.
+
+   sql explanation: The query deletes direct debit arrangements from the DirectDebit table for accounts that are closed. It uses a subquery to retrieve AccountIDs of closed accounts from the Account table and filters direct debits based on the associated AccountIDs.
+
+   syntax explanation: The query uses the DELETE statement to remove records from the DirectDebit table based on a specified condition. It includes a subquery to retrieve AccountIDs of closed accounts from the Account table. The WHERE clause filters direct debits based on the associated AccountIDs of closed accounts.
+
+   ```sql
+   DELETE FROM DirectDebit
+   WHERE AccountID IN (
+       SELECT AccountID
+       FROM Account
+       WHERE AccountStatus = 'closed'
+       );
+   ```
+
+   This query deletes direct debit arrangements from the DirectDebit table for accounts that are closed. It uses a subquery to retrieve AccountIDs of closed accounts from the Account table and filters direct debits based on the associated AccountIDs.
+
+   file: [here](StageTwo/delete2.sql)
+
 ### 2 update
+
+1. **Update Query 1:**
+
+   story: The bank wants to update the contact numbers of customers who have accounts opened more than 20 years ago. This update is necessary to ensure that customer contact information is up-to-date and accurate.
+
+   sql explanation: The query updates the contact numbers of customers who have accounts opened more than 20 years ago. It uses a subquery to retrieve CustomerIDs of customers with accounts opened before the specified date and updates their contact numbers.
+
+   syntax explanation: The query uses the UPDATE statement to modify the contact numbers of customers based on a specified condition. It includes a subquery to retrieve CustomerIDs of customers with accounts opened more than 20 years ago. The SET clause updates the contact numbers for those customers.
+
+   ```sql
+   UPDATE Customer
+   SET ContactNumber = '0000000000'
+   WHERE CustomerID IN (
+                         SELECT c.CustomerID
+                         FROM Customer c JOIN Rel5 r ON c.CustomerID = r.CustomerID JOIN Account a ON r.AccountID = a.AccountID
+                         WHERE a.DateOpened < ADD_MONTHS(SYSDATE, -240)
+                         );
+
+   ```
+
+   This query updates the contact numbers of customers who have accounts opened more than 20 years ago. It uses a subquery to retrieve CustomerIDs of customers with accounts opened before the specified date and updates their contact numbers.
+
+   file: [here](StageTwo/update1.sql)
+
+2. **Update Query 2:**
+
+    Story: The bank wants to increase the positive interest rates for VIP customers who have maintained high balances and made significant transactions in the last 24 months. This update is intended to reward loyal customers and encourage them to continue their banking activities.
+
+    sql explanation: The query updates the PositiveInterest attribute for VIP customers who have maintained high balances and made significant transactions in the last 24 months. It uses a subquery to retrieve AccountIDs of customers who meet the specified criteria and increments their PositiveInterest by 0.5.
+
+    syntax explanation: The query uses the UPDATE statement to modify the PositiveInterest attribute for VIP customers based on a specified condition. It includes a subquery to retrieve AccountIDs of customers who have maintained high balances and made significant transactions in the last 24 months. The SET clause increments the PositiveInterest by 0.5 for those customers.
+
+    ```sql
+    UPDATE Vip
+    SET PositiveInterest = PositiveInterest + 0.5
+    WHERE AccountID IN (
+                        SELECT a.AccountID
+                        FROM Account a JOIN Transactions t ON a.AccountID = t.AccountID
+                        WHERE a.Balance > 10000 AND t.TransactionDate BETWEEN ADD_MONTHS(SYSDATE, -24) AND SYSDATE
+                        );
+    ```
+
+    This query updates the PositiveInterest attribute for VIP customers who have maintained high balances and made significant transactions in the last 24 months. It uses a subquery to retrieve AccountIDs of customers who meet the specified criteria and increments their PositiveInterest by 0.5.
+
+   file: [here](StageTwo/update2.sql)
 
 ## parameterized queries
 
