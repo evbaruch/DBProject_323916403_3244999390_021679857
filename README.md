@@ -321,7 +321,15 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 # Stage Two
 
-## alters 
+## alters
+
+1. **Alter the Rel5 Table Name:**
+
+   The Rel5 table is used to establish a many-to-many relationship between the Customer and Account tables. However, the name "Rel5" does not provide meaningful information about the relationship it represents. To improve clarity and maintain consistency in naming conventions, the table name can be altered to a more descriptive name, such as "CustomerAccount."
+
+   ```sql
+   ALTER TABLE Rel5 RENAME TO CustomerAccount;
+   ```
 
 ## parameterless queries
 
@@ -329,32 +337,32 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 1. **Query 1:**
 
-This SQL query is designed to retrieve information about customers who have an account balance higher than the average balance of all accounts in the same branch. The story behind this query could be as follows:
+   This SQL query is designed to retrieve information about customers who have an account balance higher than the average balance of all accounts in the same branch. The story behind this query could be as follows:
 
-Imagine a bank with multiple branches across different locations. The bank wants to identify its wealthiest customers in each branch to offer them exclusive services or investment opportunities. To achieve this, the query performs the following operations:
+   Imagine a bank with multiple branches across different locations. The bank wants to identify its wealthiest customers in each branch to offer them exclusive services or investment opportunities. To achieve this, the query performs the following operations:
 
-1. It joins multiple tables: `Customer`, `Rel5` (a relationship table), `Account`, and `Branch`. This allows the query to access information from all these tables simultaneously.
-2. The `WHERE` clause filters the results to include only those customers whose account balance is greater than the average balance of all accounts in the same branch.
-  a. It first calculates the average balance of accounts in each branch using a subquery (`SELECT AVG(a2.Balance) FROM Account a2 WHERE a2.BranchID = a.BranchID`).
-  b. Then, it compares the balance of each customer's account (`a.Balance`) with the calculated average balance for that branch.
-3. The selected columns include the customer's first name (`c.FirstName`), last name (`c.LastName`), account balance (`a.Balance`), the branch name (`b.BranchName`), and the branch address (`b.BranchAddress`).
-4. The `ORDER BY` clause sorts the results in descending order based on the account balance (`a.Balance DESC`), so that the customers with the highest balances appear first.
+   1. It joins multiple tables: `Customer`, `Rel5` (a relationship table), `Account`, and `Branch`. This allows the query to access information from all these tables simultaneously.
+   2. The `WHERE` clause filters the results to include only those customers whose account balance is greater than the average balance of all accounts in the same branch.
+      a. It first calculates the average balance of accounts in each branch using a subquery (`SELECT AVG(a2.Balance) FROM Account a2 WHERE a2.BranchID = a.BranchID`).
+      b. Then, it compares the balance of each customer's account (`a.Balance`) with the calculated average balance for that branch.
+   3. The selected columns include the customer's first name (`c.FirstName`), last name (`c.LastName`), account balance (`a.Balance`), the branch name (`b.BranchName`), and the branch address (`b.BranchAddress`).
+   4. The `ORDER BY` clause sorts the results in descending order based on the account balance (`a.Balance DESC`), so that the customers with the highest balances appear first.
 
-By executing this query, the bank can obtain a list of its wealthiest customers for each branch, along with their account balances, branch names, and branch addresses. This information can be used to tailor personalized services, marketing campaigns, or investment opportunities for these high-value customers, potentially increasing customer satisfaction and revenue for the bank.
+   By executing this query, the bank can obtain a list of its wealthiest customers for each branch, along with their account balances, branch names, and branch addresses. This information can be used to tailor personalized services, marketing campaigns, or investment opportunities for these high-value customers, potentially increasing customer satisfaction and revenue for the bank.
 
-The query demonstrates the power of SQL in combining data from multiple tables, filtering results based on specific conditions, and sorting the output in a desired order. It also showcases the use of subqueries, which allow for complex calculations and comparisons within the main query.
+   ```sql
+   SELECT c.FirstName, c.LastName, a.Balance, b.BranchName, b.BranchAddress
+   FROM Customer c JOIN  Rel5 r ON c.CustomerID = r.CustomerID JOIN  Account a ON r.AccountID = a.AccountID
+       JOIN Branch b ON a.BranchID = b BranchID
+   WHERE  a.Balance > (
+           SELECT AVG(a2.Balance)
+           FROM Account a2
+           WHERE a2.BranchID = a.BranchID
+           )
+   ORDER BY a.Balance DESC;
+   ```
 
-```sql
-SELECT c.FirstName, c.LastName, a.Balance, b.BranchName, b.BranchAddress
-FROM  
-Customer c JOIN  Rel5 r ON c.CustomerID = r.CustomerID JOIN  Account a ON r.AccountID = a.AccountID JOIN Branch b ON a.BranchID = b.BranchID
-WHERE  a.Balance > (
-        SELECT AVG(a2.Balance)
-        FROM Account a2
-        WHERE a2.BranchID = a.BranchID 
-        )
-ORDER BY a.Balance DESC;
-```
+   file: [here](StageTwo/Yehuda/select1.sql)
 
 2. **Query 2:**
 
@@ -368,17 +376,153 @@ ORDER BY a.Balance DESC;
 
 ## parameterized queries
 
+1. **Query 1:**
+
+   Story: The bank wants to identify VIP customers who have made a significant number of transactions above a certain amount within a given date range. This information can be used to offer special promotions or rewards to these valuable customers.
+
+   ```sql
+   SELECT
+       v.CustomerID,
+       v.PositiveInterest,
+       (SELECT COUNT(*)
+       FROM Transactions t
+       WHERE t.AccountID = v.AccountID
+         AND t.Amount > &<name="Minimum Transaction Amount" type="number">
+         AND t.TransactionDate BETWEEN &<name="Start Date" type="date"> AND &<name="End Date" type="date">) AS TransactionCount
+   FROM
+       Vip v
+   WHERE
+       EXISTS (
+           SELECT 1
+           FROM Transactions t
+           WHERE t.AccountID = v.AccountID
+             AND t.Amount > &<name="Minimum Transaction Amount" type="number">
+             AND t.TransactionDate BETWEEN &<name="Start Date" type="date"> AND &<name="End Date" type="date">
+       );
+   ```
+
+   This query retrieves the CustomerID, PositiveInterest, and a count of transactions (TransactionCount) for VIP customers who have made transactions above a certain amount (Minimum Transaction Amount) within a given date range (Start Date and End Date). The correlated subquery in the WHERE clause filters only those VIP customers who have at least one transaction meeting the criteria.
+
+2. **Query 2:**
+
+   _Story_: The bank wants to analyze the performance of its branches by identifying the number of active accounts and the total balance held in each branch for specific cities. This information can help the bank make strategic decisions about resource allocation and branch operations.
+
+   ```sql
+   SELECT
+       b.BranchName,
+       b.BranchAddress,
+       (SELECT COUNT(*)
+       FROM Account a
+       WHERE a.BranchID = b.BranchID
+         AND a.AccountStatus = 'active') AS ActiveAccounts,
+       (SELECT SUM(a.Balance)
+       FROM Account a
+       WHERE a.BranchID = b.BranchID
+         AND a.AccountStatus = 'active') AS TotalBalance
+   FROM
+       Branch b
+   WHERE
+       b.BranchAddress IN (&<name="Cities" type="string" list="select distinct city from branch_addresses order by city" multiselect="yes">);
+   ```
+
+   This query retrieves the BranchName, BranchAddress, the count of active accounts (ActiveAccounts), and the total balance of active accounts (TotalBalance) for branches located in specific cities (Cities). The subqueries calculate the active account count and total balance for each branch. The user can select multiple cities from a list using the multiselect option.
+
+3. **Query 3:**
+
+   _Story_: The bank wants to identify blacklisted customers who have accounts with negative balances exceeding a certain threshold. This information can help the bank take appropriate actions, such as requesting payment or closing accounts.
+
+   ```sql
+   SELECT
+       bl.CustomerID,
+       bl.NegetiveInterest,
+       bl.MinimumMinus,
+       (SELECT a.Balance
+       FROM Account a
+       WHERE a.AccountID = bl.AccountID
+         AND a.Balance < -&<name="Negative Balance Threshold" type="number">) AS NegativeBalance
+   FROM
+       BlackList bl
+   WHERE
+       EXISTS (
+           SELECT 1
+           FROM Account a
+           WHERE a.AccountID = bl.AccountID
+             AND a.Balance < -&<name="Negative Balance Threshold" type="number">
+       );
+   ```
+
+   This query retrieves the CustomerID, NegetiveInterest, MinimumMinus, and the negative balance (NegativeBalance) for blacklisted customers who have an account with a balance less than the negative balance threshold (Negative Balance Threshold). The correlated subquery in the WHERE clause filters only those blacklisted customers who have at least one account meeting the negative balance criteria.
+
+4. **Query 4:**
+
+   _Story_: The bank wants to identify customers whose cumulative balance across all their accounts exceeds a certain threshold. This information can be used for targeted marketing campaigns or to offer special services to high-net-worth customers.
+
+   ```sql
+   SELECT
+       c.CustomerID,
+       c.FirstName,
+       c.LastName,
+       (SELECT SUM(a.Balance)
+       FROM Account a
+       WHERE EXISTS (SELECT 1
+                     FROM Rel5 r
+                     WHERE r.CustomerID = c.CustomerID
+                       AND r.AccountID = a.AccountID)) AS CumulativeBalance
+   FROM
+       Customer c
+   WHERE
+       (SELECT SUM(a.Balance)
+       FROM Account a
+       WHERE EXISTS (SELECT 1
+                     FROM Rel5 r
+                     WHERE r.CustomerID = c.CustomerID
+                       AND r.AccountID = a.AccountID)) > &<name="Cumulative Balance Threshold" type="number">;
+   ```
+
+   This query retrieves the CustomerID, FirstName, LastName, and the cumulative balance (CumulativeBalance) for customers whose cumulative balance across all their accounts exceeds the specified threshold (Cumulative Balance Threshold). The subquery calculates the cumulative balance by summing the balances of all accounts linked to the customer through the Rel5 table. The WHERE clause filters only those customers whose cumulative balance exceeds the threshold.
+
 ## constraints
 
 1. **NOT NULL Constraint:**
 
+   > The NOT NULL constraint ensures that a column cannot contain NULL values. It enforces the presence of a value in the column, preventing it from being empty.
+
+   we already have the `NOT NULL` constraint on all the atrributes in the tables that are required to have a value.
+
 2. **UNIQUE Constraint:**
+
+   > The UNIQUE constraint ensures that all values in a column are unique and not duplicated. It enforces the uniqueness of values within the column, preventing duplicate entries.
+
+   adding a UNIQUE constraint to the `Email` column in the `Customer` table.
+
+   ```sql
+   ALTER TABLE Customer
+   ADD CONSTRAINT UniqueEmail UNIQUE (Email);
+   ```
 
 3. **DEFAULT Constraint:**
 
+   > The DEFAULT constraint specifies a default value for a column when no value is provided during insertion. It assigns a predefined value to the column if no other value is specified.
+
+   adding a DEFAULT constraint to the `AccountStatus` column in the `Account` table.
+
+   ```sql
+   ALTER TABLE Account
+   MODIFY AccountStatus VARCHAR2(20) DEFAULT 'active';
+   ```
+
 4. **CHECK Constraint:**
 
+   > The CHECK constraint defines a condition that must be satisfied for the data to be inserted or updated in the column. It allows the specification of a logical expression that restricts the values that can be stored in the column.
+
+   adding a CHECK constraint to the `Amount` column in the `Transaction` table to ensure that the amount is greater than zero.
+
+   ```sql
+   ALTER TABLE Transaction
+   ADD CONSTRAINT CheckAmount CHECK (Amount > 0);
+   ```
 
 ## commits and rollbacks Explanation
-  Commits and rollbacks are used to manage transactions in the database.
-  A commit is used to save the changes made in a transaction, while a rollback is used to undo the changes made in a transaction. If a commit is executed, the changes are permanently saved in the database. If a rollback is executed, the changes are undone, and the database is restored to its previous state.
+
+Commits and rollbacks are used to manage transactions in the database.
+A commit is used to save the changes made in a transaction, while a rollback is used to undo the changes made in a transaction. If a commit is executed, the changes are permanently saved in the database. If a rollback is executed, the changes are undone, and the database is restored to its previous state.
