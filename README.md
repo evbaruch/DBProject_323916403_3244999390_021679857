@@ -8,6 +8,8 @@
 
 ## Table of Contents
 
+[Stage One](#stage-one)
+
 1. [Description of the Organization](#description-of-the-organization)
 
 2. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
@@ -46,6 +48,10 @@
 9. [Drop Table Script](#drop-table-script)
 
 10. [Backup and Test](#backup-and-test)
+
+[Stage Two](#stage-two)
+
+# Stage One
 
 ## Description of the Organization
 
@@ -142,7 +148,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 - The BlackList entity represents customers who have been blacklisted due to certain reasons.
 
   **Attributes:**
-  
+
   - Inherits all attributes from Customer.
   - **NegetiveInterest:** Interest rate applied to BlackList accounts.
   - **MinimumMinus:** Minimum balance allowed for BlackList accounts.
@@ -215,7 +221,6 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 | ---------- | ---------- | ----------- |
 | CustomerID | NUMBER(38) | NOT NULL    |
 | AccountID  | NUMBER(38) | NOT NULL    |
-
 
 ![part-one](StageOne/Images/Desc_part_1.png)
 ![part-two](StageOne/Images/Desc_part_2.png)
@@ -313,3 +318,40 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 - Backup pde script:
   [here](StageOne/Scripts/backupPLSQL.pde)
+
+# Stage Two
+
+## alters 
+
+## parameterless queries
+
+### 4 select queries
+
+1. **Query 1:** 
+
+2. **Query 2:**
+
+3. **Query 3:**
+
+4. **Query 4:**
+
+### 2 delete
+
+### 2 update
+
+## parameterized queries
+
+## constraints
+
+1. **NOT NULL Constraint:**
+
+2. **UNIQUE Constraint:**
+
+3. **DEFAULT Constraint:**
+
+4. **CHECK Constraint:**
+
+
+## commits and rollbacks Explanation
+  Commits and rollbacks are used to manage transactions in the database.
+  A commit is used to save the changes made in a transaction, while a rollback is used to undo the changes made in a transaction. If a commit is executed, the changes are permanently saved in the database. If a rollback is executed, the changes are undone, and the database is restored to its previous state.
