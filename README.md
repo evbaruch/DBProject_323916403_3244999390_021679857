@@ -382,23 +382,22 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    ```sql
    SELECT
-       v.CustomerID,
-       v.PositiveInterest,
-       (SELECT COUNT(*)
-       FROM Transactions t
-       WHERE t.AccountID = v.AccountID
-         AND t.Amount > &<name="Minimum Transaction Amount" type="number">
-         AND t.TransactionDate BETWEEN &<name="Start Date" type="date"> AND &<name="End Date" type="date">) AS TransactionCount
-   FROM
-       Vip v
-   WHERE
-       EXISTS (
-           SELECT 1
-           FROM Transactions t
-           WHERE t.AccountID = v.AccountID
-             AND t.Amount > &<name="Minimum Transaction Amount" type="number">
-             AND t.TransactionDate BETWEEN &<name="Start Date" type="date"> AND &<name="End Date" type="date">
-       );
+    v.AccountID,
+    c.FirstName || ' ' || c.LastName AS CustomerName,
+    v.PositiveInterest,
+    (SELECT COUNT(*)
+     FROM Transactions t
+     WHERE t.AccountID = v.AccountID
+       AND t.Amount > &minTransactionAmount
+       AND t.TransactionDate BETWEEN TO_DATE('&startDate', 'YYYY-MM-DD') AND TO_DATE('&endDate', 'YYYY-MM-DD')) AS TransactionCount
+    FROM Vip v JOIN Rel5 r ON v.AccountID = r.AccountID JOIN Customer c ON r.CustomerID = c.CustomerID
+    WHERE EXISTS (
+        SELECT 1
+        FROM Transactions t
+        WHERE t.AccountID = v.AccountID
+          AND t.Amount > &minTransactionAmount
+          AND t.TransactionDate BETWEEN TO_DATE('&startDate', 'YYYY-MM-DD') AND TO_DATE('&endDate', 'YYYY-MM-DD')
+    );
    ```
 
    This query retrieves the CustomerID, PositiveInterest, and a count of transactions (TransactionCount) for VIP customers who have made transactions above a certain amount (Minimum Transaction Amount) within a given date range (Start Date and End Date). The correlated subquery in the WHERE clause filters only those VIP customers who have at least one transaction meeting the criteria.
@@ -409,59 +408,54 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    _Story_: The bank wants to analyze the performance of its branches by identifying the number of active accounts and the total balance held in each branch for specific cities. This information can help the bank make strategic decisions about resource allocation and branch operations.
 
-      ```sql
-      SELECT
-          b.BranchName,
-          b.BranchAddress,
-          (SELECT COUNT(*)
-          FROM Account a
-          WHERE a.BranchID = b.BranchID
-            AND a.AccountStatus = 'active') AS ActiveAccounts,
-          (SELECT SUM(a.Balance)
-          FROM Account a
-          WHERE a.BranchID = b.BranchID
-            AND a.AccountStatus = 'active') AS TotalBalance
-      FROM
-          Branch b
-      WHERE
-          b.BranchAddress IN (&<name="Cities" type="string" list="select distinct city from branch_addresses order by city" multiselect="yes">);
-      ```
+   ```sql
+   SELECT b.BranchName, b.BranchAddress,
+    (SELECT COUNT(*)
+     FROM Account a
+     WHERE a.BranchID = b.BranchID
+       AND a.AccountStatus != 'closed') AS ActiveAccounts,
+    (SELECT SUM(a.Balance)
+     FROM Account a
+    WHERE a.BranchID = b.BranchID AND a.AccountStatus != 'closed') AS TotalBalance
+    FROM Branch b
+    WHERE b.BranchAddress IN (&<name="Cities" type="string" list="select BranchAddress from Branch order by BranchAddress" multiselect="yes">);
+   ```
 
-      This query retrieves the BranchName, BranchAddress, the count of active accounts (ActiveAccounts), and the total balance of active accounts (TotalBalance) for branches located in specific cities (Cities). The subqueries calculate the active account count and total balance for each branch. The user can select multiple cities from a list using the multiselect option.
+   This query retrieves the BranchName, BranchAddress, the count of active accounts (ActiveAccounts), and the total balance of active accounts (TotalBalance) for branches located in specific cities (Cities). The subqueries calculate the active account count and total balance for each branch. The user can select multiple cities from a list using the multiselect option.
 
-      file: [here](StageTwo/select2.sql)
+   file: [here](StageTwo/select2.sql)
 
 3. **Query 3:**
 
-      _Story_: The bank wants to identify blacklisted customers who have accounts with negative balances exceeding a certain threshold. This information can help the bank take appropriate actions, such as requesting payment, imposing additional fees, or potentially closing those accounts. The query retrieves the AccountID, NegetiveInterest, MinimumMinus, NegativeBalance (if it exists below the specified threshold), and the CustomerName for blacklisted customers who have accounts with negative balances below the specified threshold.
+   _Story_: The bank wants to identify blacklisted customers who have accounts with negative balances exceeding a certain threshold. This information can help the bank take appropriate actions, such as requesting payment, imposing additional fees, or potentially closing those accounts. The query retrieves the AccountID, NegetiveInterest, MinimumMinus, NegativeBalance (if it exists below the specified threshold), and the CustomerName for blacklisted customers who have accounts with negative balances below the specified threshold.
 
-    ```sql
-    SELECT bl.AccountID, bl.NegetiveInterest, bl.MinimumMinus,
-          (
-            SELECT a.Balance
-            FROM Account a
-            WHERE a.AccountID = bl.AccountID
-            AND a.Balance < -20000
-          ) AS NegativeBalance,
-          (
-            SELECT c.FirstName || ' ' || c.LastName
-            FROM Account a
-            JOIN Rel5 r ON a.AccountID = r.AccountID
-            JOIN Customer c ON r.CustomerID = c.CustomerID
-            WHERE a.AccountID = bl.AccountID
-          ) AS CustomerName
-    FROM BlackList bl
-    WHERE EXISTS (
-                SELECT 1
-                FROM Account a
-                WHERE a.AccountID = bl.AccountID
-                AND a.Balance < -20000
-      )
-    ```
+   ```sql
+   SELECT bl.AccountID, bl.NegetiveInterest, bl.MinimumMinus,
+         (
+           SELECT a.Balance
+           FROM Account a
+           WHERE a.AccountID = bl.AccountID
+           AND a.Balance < -20000
+         ) AS NegativeBalance,
+         (
+           SELECT c.FirstName || ' ' || c.LastName
+           FROM Account a
+           JOIN Rel5 r ON a.AccountID = r.AccountID
+           JOIN Customer c ON r.CustomerID = c.CustomerID
+           WHERE a.AccountID = bl.AccountID
+         ) AS CustomerName
+   FROM BlackList bl
+   WHERE EXISTS (
+               SELECT 1
+               FROM Account a
+               WHERE a.AccountID = bl.AccountID
+               AND a.Balance < -20000
+     )
+   ```
 
-    This query retrieves the CustomerID, NegetiveInterest, MinimumMinus, and the negative balance (NegativeBalance) for blacklisted customers who have an account with a balance less than the negative balance threshold (Negative Balance Threshold). The correlated subquery in the WHERE clause filters only those blacklisted customers who have at least one account meeting the negative balance criteria.
+   This query retrieves the CustomerID, NegetiveInterest, MinimumMinus, and the negative balance (NegativeBalance) for blacklisted customers who have an account with a balance less than the negative balance threshold (Negative Balance Threshold). The correlated subquery in the WHERE clause filters only those blacklisted customers who have at least one account meeting the negative balance criteria.
 
-    file: [here](StageTwo/select3.sql)
+   file: [here](StageTwo/select3.sql)
 
 4. **Query 4:**
 
@@ -521,11 +515,12 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    > The DEFAULT constraint specifies a default value for a column when no value is provided during insertion. It assigns a predefined value to the column if no other value is specified.
 
-   adding a DEFAULT constraint to the `AccountStatus` column in the `Account` table.
+   adding a DEFAULT constraint to the `AccountStatus` column in the `Account` table to be set to some valid status if no value is provided(the statuses are 'soldier','elderly','regular','student','foreign' , 'minor' , and lastly 'closed' but an account can't be opened with this status).
 
    ```sql
+
    ALTER TABLE Account
-   MODIFY AccountStatus VARCHAR2(20) DEFAULT 'active';
+   MODIFY AccountStatus VARCHAR2(20) DEFAULT 'regular';
    ```
 
    [image](StageTwo/Images/Default_Constraint.png)
