@@ -327,7 +327,34 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 ### 4 select queries
 
-1. **Query 1:** 
+1. **Query 1:**
+
+This SQL query is designed to retrieve information about customers who have an account balance higher than the average balance of all accounts in the same branch. The story behind this query could be as follows:
+
+Imagine a bank with multiple branches across different locations. The bank wants to identify its wealthiest customers in each branch to offer them exclusive services or investment opportunities. To achieve this, the query performs the following operations:
+
+1. It joins multiple tables: `Customer`, `Rel5` (a relationship table), `Account`, and `Branch`. This allows the query to access information from all these tables simultaneously.
+2. The `WHERE` clause filters the results to include only those customers whose account balance is greater than the average balance of all accounts in the same branch.
+  a. It first calculates the average balance of accounts in each branch using a subquery (`SELECT AVG(a2.Balance) FROM Account a2 WHERE a2.BranchID = a.BranchID`).
+  b. Then, it compares the balance of each customer's account (`a.Balance`) with the calculated average balance for that branch.
+3. The selected columns include the customer's first name (`c.FirstName`), last name (`c.LastName`), account balance (`a.Balance`), the branch name (`b.BranchName`), and the branch address (`b.BranchAddress`).
+4. The `ORDER BY` clause sorts the results in descending order based on the account balance (`a.Balance DESC`), so that the customers with the highest balances appear first.
+
+By executing this query, the bank can obtain a list of its wealthiest customers for each branch, along with their account balances, branch names, and branch addresses. This information can be used to tailor personalized services, marketing campaigns, or investment opportunities for these high-value customers, potentially increasing customer satisfaction and revenue for the bank.
+
+The query demonstrates the power of SQL in combining data from multiple tables, filtering results based on specific conditions, and sorting the output in a desired order. It also showcases the use of subqueries, which allow for complex calculations and comparisons within the main query.
+
+```sql
+SELECT c.FirstName, c.LastName, a.Balance, b.BranchName, b.BranchAddress
+FROM  
+Customer c JOIN  Rel5 r ON c.CustomerID = r.CustomerID JOIN  Account a ON r.AccountID = a.AccountID JOIN Branch b ON a.BranchID = b.BranchID
+WHERE  a.Balance > (
+        SELECT AVG(a2.Balance)
+        FROM Account a2
+        WHERE a2.BranchID = a.BranchID 
+        )
+ORDER BY a.Balance DESC;
+```
 
 2. **Query 2:**
 
