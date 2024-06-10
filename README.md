@@ -325,10 +325,10 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 1. **Alter the Rel5 Table Name:**
 
-   The Rel5 table is used to establish a many-to-many relationship between the Customer and Account tables. However, the name "Rel5" does not provide meaningful information about the relationship it represents. To improve clarity and maintain consistency in naming conventions, the table name can be altered to a more descriptive name, such as "CustomerAccount."
+   The Rel5 table is used to establish a many-to-many relationship between the Customer and Account tables. However, the name "Rel5" does not provide meaningful information about the relationship it represents. To improve clarity and maintain consistency in naming conventions, the table name can be altered to a more descriptive name, such as "Relationship."
 
    ```sql
-   ALTER TABLE Rel5 RENAME TO CustomerAccount;
+   ALTER TABLE Rel5 RENAME TO Relationship;
    ```
 
 ## parameterless queries
@@ -403,6 +403,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    This query retrieves the CustomerID, PositiveInterest, and a count of transactions (TransactionCount) for VIP customers who have made transactions above a certain amount (Minimum Transaction Amount) within a given date range (Start Date and End Date). The correlated subquery in the WHERE clause filters only those VIP customers who have at least one transaction meeting the criteria.
 
+   file: [here](StageTwo/select1.sql)
+
 2. **Query 2:**
 
    _Story_: The bank wants to analyze the performance of its branches by identifying the number of active accounts and the total balance held in each branch for specific cities. This information can help the bank make strategic decisions about resource allocation and branch operations.
@@ -426,6 +428,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
    ```
 
    This query retrieves the BranchName, BranchAddress, the count of active accounts (ActiveAccounts), and the total balance of active accounts (TotalBalance) for branches located in specific cities (Cities). The subqueries calculate the active account count and total balance for each branch. The user can select multiple cities from a list using the multiselect option.
+
+   file: [here](StageTwo/select2.sql)
 
 3. **Query 3:**
 
@@ -452,6 +456,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
    ```
 
    This query retrieves the CustomerID, NegetiveInterest, MinimumMinus, and the negative balance (NegativeBalance) for blacklisted customers who have an account with a balance less than the negative balance threshold (Negative Balance Threshold). The correlated subquery in the WHERE clause filters only those blacklisted customers who have at least one account meeting the negative balance criteria.
+
+   file: [here](StageTwo/select3.sql)
 
 4. **Query 4:**
 
@@ -489,6 +495,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    we already have the `NOT NULL` constraint on all the atrributes in the tables that are required to have a value.
 
+   [image](StageTwo/Images/Not_Null_Constraint.png)
+
 2. **UNIQUE Constraint:**
 
    > The UNIQUE constraint ensures that all values in a column are unique and not duplicated. It enforces the uniqueness of values within the column, preventing duplicate entries.
@@ -499,6 +507,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
    ALTER TABLE Customer
    ADD CONSTRAINT UniqueEmail UNIQUE (Email);
    ```
+
+   [image](StageTwo/Images/Unique_Constraint.png)
 
 3. **DEFAULT Constraint:**
 
@@ -511,6 +521,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
    MODIFY AccountStatus VARCHAR2(20) DEFAULT 'active';
    ```
 
+   [image](StageTwo/Images/Default_Constraint.png)
+
 4. **CHECK Constraint:**
 
    > The CHECK constraint defines a condition that must be satisfied for the data to be inserted or updated in the column. It allows the specification of a logical expression that restricts the values that can be stored in the column.
@@ -521,6 +533,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
    ALTER TABLE Transaction
    ADD CONSTRAINT CheckAmount CHECK (Amount > 0);
    ```
+
+   [image](StageTwo/Images/Check_Constraint.png)
 
 ## commits and rollbacks Explanation
 
