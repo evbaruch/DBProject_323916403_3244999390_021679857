@@ -409,80 +409,87 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    _Story_: The bank wants to analyze the performance of its branches by identifying the number of active accounts and the total balance held in each branch for specific cities. This information can help the bank make strategic decisions about resource allocation and branch operations.
 
-   ```sql
-   SELECT
-       b.BranchName,
-       b.BranchAddress,
-       (SELECT COUNT(*)
-       FROM Account a
-       WHERE a.BranchID = b.BranchID
-         AND a.AccountStatus = 'active') AS ActiveAccounts,
-       (SELECT SUM(a.Balance)
-       FROM Account a
-       WHERE a.BranchID = b.BranchID
-         AND a.AccountStatus = 'active') AS TotalBalance
-   FROM
-       Branch b
-   WHERE
-       b.BranchAddress IN (&<name="Cities" type="string" list="select distinct city from branch_addresses order by city" multiselect="yes">);
-   ```
+      ```sql
+      SELECT
+          b.BranchName,
+          b.BranchAddress,
+          (SELECT COUNT(*)
+          FROM Account a
+          WHERE a.BranchID = b.BranchID
+            AND a.AccountStatus = 'active') AS ActiveAccounts,
+          (SELECT SUM(a.Balance)
+          FROM Account a
+          WHERE a.BranchID = b.BranchID
+            AND a.AccountStatus = 'active') AS TotalBalance
+      FROM
+          Branch b
+      WHERE
+          b.BranchAddress IN (&<name="Cities" type="string" list="select distinct city from branch_addresses order by city" multiselect="yes">);
+      ```
 
-   This query retrieves the BranchName, BranchAddress, the count of active accounts (ActiveAccounts), and the total balance of active accounts (TotalBalance) for branches located in specific cities (Cities). The subqueries calculate the active account count and total balance for each branch. The user can select multiple cities from a list using the multiselect option.
+      This query retrieves the BranchName, BranchAddress, the count of active accounts (ActiveAccounts), and the total balance of active accounts (TotalBalance) for branches located in specific cities (Cities). The subqueries calculate the active account count and total balance for each branch. The user can select multiple cities from a list using the multiselect option.
 
-   file: [here](StageTwo/select2.sql)
+      file: [here](StageTwo/select2.sql)
 
 3. **Query 3:**
 
-   _Story_: The bank wants to identify blacklisted customers who have accounts with negative balances exceeding a certain threshold. This information can help the bank take appropriate actions, such as requesting payment or closing accounts.
+      _Story_: The bank wants to identify blacklisted customers who have accounts with negative balances exceeding a certain threshold. This information can help the bank take appropriate actions, such as requesting payment, imposing additional fees, or potentially closing those accounts. The query retrieves the AccountID, NegetiveInterest, MinimumMinus, NegativeBalance (if it exists below the specified threshold), and the CustomerName for blacklisted customers who have accounts with negative balances below the specified threshold.
 
-   ```sql
-   SELECT
-       bl.CustomerID,
-       bl.NegetiveInterest,
-       bl.MinimumMinus,
-       (SELECT a.Balance
-       FROM Account a
-       WHERE a.AccountID = bl.AccountID
-         AND a.Balance < -&<name="Negative Balance Threshold" type="number">) AS NegativeBalance
-   FROM
-       BlackList bl
-   WHERE
-       EXISTS (
-           SELECT 1
-           FROM Account a
-           WHERE a.AccountID = bl.AccountID
-             AND a.Balance < -&<name="Negative Balance Threshold" type="number">
-       );
-   ```
+    ```sql
+    SELECT bl.AccountID, bl.NegetiveInterest, bl.MinimumMinus,
+          (
+            SELECT a.Balance
+            FROM Account a
+            WHERE a.AccountID = bl.AccountID
+            AND a.Balance < -20000
+          ) AS NegativeBalance,
+          (
+            SELECT c.FirstName || ' ' || c.LastName
+            FROM Account a
+            JOIN Rel5 r ON a.AccountID = r.AccountID
+            JOIN Customer c ON r.CustomerID = c.CustomerID
+            WHERE a.AccountID = bl.AccountID
+          ) AS CustomerName
+    FROM BlackList bl
+    WHERE EXISTS (
+                SELECT 1
+                FROM Account a
+                WHERE a.AccountID = bl.AccountID
+                AND a.Balance < -20000
+      )
+    ```
 
-   This query retrieves the CustomerID, NegetiveInterest, MinimumMinus, and the negative balance (NegativeBalance) for blacklisted customers who have an account with a balance less than the negative balance threshold (Negative Balance Threshold). The correlated subquery in the WHERE clause filters only those blacklisted customers who have at least one account meeting the negative balance criteria.
+    This query retrieves the CustomerID, NegetiveInterest, MinimumMinus, and the negative balance (NegativeBalance) for blacklisted customers who have an account with a balance less than the negative balance threshold (Negative Balance Threshold). The correlated subquery in the WHERE clause filters only those blacklisted customers who have at least one account meeting the negative balance criteria.
 
-   file: [here](StageTwo/select3.sql)
+    file: [here](StageTwo/select3.sql)
 
 4. **Query 4:**
 
    _Story_: The bank wants to identify customers whose cumulative balance across all their accounts exceeds a certain threshold. This information can be used for targeted marketing campaigns or to offer special services to high-net-worth customers.
 
    ```sql
-   SELECT
-       c.CustomerID,
-       c.FirstName,
-       c.LastName,
-       (SELECT SUM(a.Balance)
-       FROM Account a
-       WHERE EXISTS (SELECT 1
-                     FROM Rel5 r
-                     WHERE r.CustomerID = c.CustomerID
-                       AND r.AccountID = a.AccountID)) AS CumulativeBalance
-   FROM
-       Customer c
-   WHERE
-       (SELECT SUM(a.Balance)
-       FROM Account a
-       WHERE EXISTS (SELECT 1
-                     FROM Rel5 r
-                     WHERE r.CustomerID = c.CustomerID
-                       AND r.AccountID = a.AccountID)) > &<name="Cumulative Balance Threshold" type="number">;
+   SELECT c.CustomerID, c.FirstName, c.LastName, (SELECT SUM(a.Balance)
+                                                  FROM Account a
+   WHERE EXISTS (SELECT 1
+                 FROM Rel5 r
+                 WHERE r.CustomerID = c.CustomerID
+                   AND r.AccountID = a.AccountID)) AS CumulativeBalance,
+   (SELECT COUNT(*)
+   FROM Account a
+   WHERE EXISTS (SELECT 1
+                 FROM Rel5 r
+                 WHERE r.CustomerID = c.CustomerID
+                   AND r.AccountID = a.AccountID)) AS AccountCount
+   FROM Customer c
+   WHERE (
+           SELECT SUM(a.Balance)
+           FROM Account a
+           WHERE EXISTS (SELECT 1
+                         FROM Rel5 r
+                         WHERE r.CustomerID = c.CustomerID
+                           AND r.AccountID = a.AccountID
+                           )
+         ) > &<name="Cumulative Balance Threshold" type="float">;
    ```
 
    This query retrieves the CustomerID, FirstName, LastName, and the cumulative balance (CumulativeBalance) for customers whose cumulative balance across all their accounts exceeds the specified threshold (Cumulative Balance Threshold). The subquery calculates the cumulative balance by summing the balances of all accounts linked to the customer through the Rel5 table. The WHERE clause filters only those customers whose cumulative balance exceeds the threshold.
