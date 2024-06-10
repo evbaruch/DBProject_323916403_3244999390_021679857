@@ -11,7 +11,7 @@ As a data analyst at a bank, you need to identify VIP customers whose accounts h
 
 Explanation:
 -------------
-This query retrieves details of VIP customers whose accounts have had no transactions since they were opened. Here’s how it works:
+This query retrieves details of VIP customers whose accounts have had no transactions since they were opened. Hereï¿½s how it works:
 
 1. SELECT Clause:
    - `c.FirstName, c.LastName`: Retrieves the first and last names of the customers.
@@ -43,7 +43,7 @@ SELECT
 FROM 
     Customer c
 JOIN 
-    Rel5 r ON c.CustomerID = r.CustomerID
+    Relationship r ON c.CustomerID = r.CustomerID
 JOIN 
     Account a ON r.AccountID = a.AccountID
 JOIN 

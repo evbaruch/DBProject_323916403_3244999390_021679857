@@ -1,0 +1,1 @@
+ALTER TABLE Rel5 RENAME TO Relationship;

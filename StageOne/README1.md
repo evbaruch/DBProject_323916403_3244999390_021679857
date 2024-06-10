@@ -61,9 +61,9 @@ Overall, XYZ Bank is committed to upholding the highest standards of integrity, 
 
 The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustrates the entities and their relationships within the database schema.
 
-![Project Photo](StageOne/Images/ERD-nonWeak.png)
+![Project Photo](/StageOne/Images/ERD-nonWeak.png)
 
-![dds-lite](<StageOne/Images/ERD(dds-lite).png>)
+![dds-lite](</StageOne/Images/ERD(dds-lite).png>)
 
 ## Database Schema
 
@@ -145,7 +145,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 
 The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram (ERD) and represents the logical structure of the database. It outlines the tables, fields, and relationships in a hierarchical manner.
 
-![DSD](StageOne/Images/DSD.png)
+![DSD](/StageOne/Images/DSD.png)
 
 - **Customer**
 
@@ -520,66 +520,85 @@ Let's see for every schema:
 | AccountID  | NUMBER(38) | NOT NULL    |
 ```
 
-![part-one](StageOne/Images/Desc_part_1.png)
-![part-two](StageOne/Images/Desc_part_2.png)
+![part-one](/StageOne/Images/Desc_part_1.png)
+![part-two](/StageOne/Images/Desc_part_2.png)
 
 ### tables
 
 > The tables in the database are as follows:
-> ![tables](StageOne/Images/tables.bmp)
+> ![tables](/StageOne/Images/tables.bmp)
 
 ## Data Entry
 
 > The data entry process involves inserting records into the tables of the database. This can be done manually or through automated scripts.
 
-[here](StageOne/StageOne/Scripts/insertTables.sql)
+[here](/StageOne/StageOne/Scripts/insertTables.sql)
 
 ### data generator images
 
-  #### Costumer Table
-  > ![Costumer Table](StageOne/Images/insertTabls/DataGenerator/Customer/DataGeneratorCustomerInit.png)
+#### Costumer Table
 
-  > ![Costumer Table](StageOne/Images/insertTabls/DataGenerator/Customer/DataGeneratorCustomerSql.png)
+> ![Costumer Table](/StageOne/Images/insertTabls/DataGenerator/Customer/DataGeneratorCustomerInit.png)
 
-  #### Account Table
-  > ![Account Table](StageOne/Images/insertTabls/DataGenerator/Account/DataGeneratorAccountInit.png) 
+> ![Costumer Table](/StageOne/Images/insertTabls/DataGenerator/Customer/DataGeneratorCustomerSql.png)
 
-  > ![Account Table](StageOne/Images/insertTabls/DataGenerator/Account/DataGeneratorAccountSql.png)
+#### Account Table
 
-  #### Transaction Table
-  > ![Transaction Table](StageOne/Images/insertTabls/DataGenerator/Transactions/DataGeneratorTransactionsInit.png)
+> ![Account Table](/StageOne/Images/insertTabls/DataGenerator/Account/DataGeneratorAccountInit.png)
 
-  > ![Transaction Table](StageOne/Images/insertTabls/DataGenerator/Transactions/DataGeneratorTransactionsSql.png)
+> ![Account Table](/StageOne/Images/insertTabls/DataGenerator/Account/DataGeneratorAccountSql.png)
 
-  #### Branch Table
-  > ![Branch Table](StageOne/Images/insertTabls/DataGenerator/Branch/DataGeneratorBrachInit.png)
+#### Transaction Table
 
-  > ![Branch Table](StageOne/Images/insertTabls/DataGenerator/Branch/DataGeneratorBranchSql.png)
+> ![Transaction Table](/StageOne/Images/insertTabls/DataGenerator/Transactions/DataGeneratorTransactionsInit.png)
 
-  #### Direct Debit Table
-  > ![Direct Debit Table](StageOne/Images/insertTabls/DataGenerator/DirectDebit/DataGeneratorDirectDebitInit.png)
+> ![Transaction Table](/StageOne/Images/insertTabls/DataGenerator/Transactions/DataGeneratorTransactionsSql.png)
 
-  > ![Direct Debit Table](StageOne/Images/insertTabls/DataGenerator/DirectDebit/DataGeneratorDirectDebitSql.png)
+#### Branch Table
 
-  #### VIP Table
-  > ![VIP Table](StageOne/Images/insertTabls/DataGenerator/Vip/DataGeneratorVIPInit.png)
+> ![Branch Table](/StageOne/Images/insertTabls/DataGenerator/Branch/DataGeneratorBrachInit.png)
 
-  > ![VIP Table](StageOne/Images/insertTabls/DataGenerator/Vip/DataGeneratorVIPSql.png)
+> ![Branch Table](/StageOne/Images/insertTabls/DataGenerator/Branch/DataGeneratorBranchSql.png)
 
-  #### BlackList Table
-  > ![BlackList Table](StageOne/Images/insertTabls/DataGenerator/BlackList/DataGeneratorBlackListInit.png)
+#### Direct Debit Table
 
-  > ![BlackList Table](StageOne/Images/insertTabls/DataGenerator/BlackList/DataGeneratorBlackListSql.png)
+> ![Direct Debit Table](/StageOne/Images/insertTabls/DataGenerator/DirectDebit/DataGeneratorDirectDebitInit.png)
 
-  #### Rel5 Table
-  > ![Rel5 Table](StageOne/Images/insertTabls/DataGenerator/Rel5/DataGeneratorRel5Init.png)
+> ![Direct Debit Table](/StageOne/Images/insertTabls/DataGenerator/DirectDebit/DataGeneratorDirectDebitSql.png)
 
-  > ![Rel5 Table](StageOne/Images/insertTabls/DataGenerator/Rel5/DataGeneratorRel5Sql.png)
+#### VIP Table
+
+> ![VIP Table](/StageOne/Images/insertTabls/DataGenerator/Vip/DataGeneratorVIPInit.png)
+
+> ![VIP Table](/StageOne/Images/insertTabls/DataGenerator/Vip/DataGeneratorVIPSql.png)
+
+#### BlackList Table
+
+> ![BlackList Table](/StageOne/Images/insertTabls/DataGenerator/BlackList/DataGeneratorBlackListInit.png)
+
+> ![BlackList Table](/StageOne/Images/insertTabls/DataGenerator/BlackList/DataGeneratorBlackListSql.png)
+
+#### Rel5 Table
+
+> ![Rel5 Table](/StageOne/Images/insertTabls/DataGenerator/Rel5/DataGeneratorRel5Init.png)
+
+> ![Rel5 Table](/StageOne/Images/insertTabls/DataGenerator/Rel5/DataGeneratorRel5Sql.png)
 
 ## Drop Table Script
 
 > The drop table script is used to remove tables from the database. It includes the table name and the command to drop the table.
 
-[here](StageOne/StageOne/Scripts/dropTables.sql)
+[here](/StageOne/StageOne/Scripts/dropTables.sql)
 
 ## Backup and Test
+
+> The backup and test process involves creating a backup of the database and testing the database to ensure that it is functioning correctly.
+
+- Backup SQL script:
+  [here](/StageOne/Scripts/backupSql.sql)
+
+- Backup PL/SQL script:
+  [here](/StageOne/Scripts/backupPlSql.sql)
+
+- Backup pde script:
+  [here](/StageOne/Scripts/backupPLSQL.pde)
