@@ -337,38 +337,75 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 1. **Query 1:**
 
-   This SQL query is designed to retrieve information about customers who have an account balance higher than the average balance of all accounts in the same branch. The story behind this query could be as follows:
+   Story: The bank wants to identify customers who have account balances greater than the 90th percentile balance for each branch. This information can help the bank identify high-balance customers and offer them personalized services or investment opportunities.
 
-   Imagine a bank with multiple branches across different locations. The bank wants to identify its wealthiest customers in each branch to offer them exclusive services or investment opportunities. To achieve this, the query performs the following operations:
+   sql explanation: The query retrieves the first name, last name, account balance, branch name, and branch address for customers who have account balances greater than the 90th percentile balance for each branch. The subquery calculates the 90th percentile balance for each branch using the PERCENTILE_DISC function within a group. The main query filters customers based on their account balances exceeding the calculated 90th percentile balance for their respective branches.
 
-   1. It joins multiple tables: `Customer`, `Rel5` (a relationship table), `Account`, and `Branch`. This allows the query to access information from all these tables simultaneously.
-   2. The `WHERE` clause filters the results to include only those customers whose account balance is greater than the average balance of all accounts in the same branch.
-      a. It first calculates the average balance of accounts in each branch using a subquery (`SELECT AVG(a2.Balance) FROM Account a2 WHERE a2.BranchID = a.BranchID`).
-      b. Then, it compares the balance of each customer's account (`a.Balance`) with the calculated average balance for that branch.
-   3. The selected columns include the customer's first name (`c.FirstName`), last name (`c.LastName`), account balance (`a.Balance`), the branch name (`b.BranchName`), and the branch address (`b.BranchAddress`).
-   4. The `ORDER BY` clause sorts the results in descending order based on the account balance (`a.Balance DESC`), so that the customers with the highest balances appear first.
-
-   By executing this query, the bank can obtain a list of its wealthiest customers for each branch, along with their account balances, branch names, and branch addresses. This information can be used to tailor personalized services, marketing campaigns, or investment opportunities for these high-value customers, potentially increasing customer satisfaction and revenue for the bank.
+   syntax explanation: The query uses the SELECT statement to retrieve specific columns from the Customer, Account, and Branch tables. It includes a correlated subquery within the WHERE clause to filter customers based on their account balances exceeding the 90th percentile balance for each branch. The results are ordered by account balance in descending order.
 
    ```sql
    SELECT c.FirstName, c.LastName, a.Balance, b.BranchName, b.BranchAddress
-   FROM Customer c JOIN  Rel5 r ON c.CustomerID = r.CustomerID JOIN  Account a ON r.AccountID = a.AccountID
-       JOIN Branch b ON a.BranchID = b BranchID
-   WHERE  a.Balance > (
-           SELECT AVG(a2.Balance)
-           FROM Account a2
-           WHERE a2.BranchID = a.BranchID
-           )
-   ORDER BY a.Balance DESC;
+   FROM Customer c JOIN Rel5 r ON c.CustomerID = r.CustomerID JOIN Account a ON r.AccountID = a.AccountID JOIN Branch b ON a.BranchID = b.BranchID
+   WHERE a.Balance > (
+         SELECT PERCENTILE_DISC(0.9) WITHIN GROUP (ORDER BY a2.Balance) -- Calculate the 90th percentile balance for each branch
+         FROM Account a2
+         WHERE a2.BranchID = a.BranchID
+       )
+   ORDER BY
+     a.Balance DESC;
    ```
 
-   file: [here](StageTwo/Yehuda/select1.sql)
+   file: [here](StageTwo/select1.sql)
 
 2. **Query 2:**
 
+   Story: The bank wants to generate a report of transactions made by customers within the last 24 months. This report should include the customer's first name, last name, transaction date, transaction type, and transaction amount. The bank can use this information to analyze customer transaction patterns and identify trends.
+
+   sql explanation: The query retrieves the first name, last name, transaction date, transaction type, and amount for transactions made by customers within the last 24 months. It joins the Transactions, Account, Rel5, and Customer tables to link transactions to customers. The WHERE clause filters transactions based on the transaction date falling within the specified date range. The results are ordered by customer last name, first name, and transaction date in descending order.
+
+   syntax explanation: The query uses the SELECT statement to retrieve specific columns from the Transactions, Account, Rel5, and Customer tables. It includes JOIN operations to link transactions to customers through the Account and Rel5 tables. The WHERE clause filters transactions based on the transaction date falling within the last 24 months. The results are ordered by customer last name, first name, and transaction date in descending order.
+
+   ```sql
+   SELECT  c.FirstName, c.LastName, t.TransactionDate, t.TransactionType, t.Amount
+   FROM Transactions t JOIN Account a ON t.AccountID = a.AccountID JOIN Rel5 r ON a.AccountID = r.AccountID JOIN Customer c ON r.CustomerID = c.CustomerID
+   WHERE t.TransactionDate BETWEEN ADD_MONTHS(SYSDATE, -24) AND SYSDATE
+   ORDER BY c.LastName, c.FirstName, t.TransactionDate DESC;
+   ```
+
+   file: [here](StageTwo/select2.sql)
+
 3. **Query 3:**
 
+   ```sql
+   SELECT b.BranchName, b.BranchAddress, SUM(a.Balance) AS TotalBalance, COUNT(a.AccountID) AS AccountCount
+   FROM Branch b JOIN  Account a ON b.BranchID = a.BranchID
+   WHERE a.DateOpened BETWEEN ADD_MONTHS(SYSDATE, -24) AND SYSDATE
+   GROUP BY b.BranchName, b.BranchAddress
+   ORDER BY TotalBalance DESC;
+   ```
+
+   file: [here](StageTwo/select3.sql)
+
 4. **Query 4:**
+
+   Story: The bank wants to identify customers who have VIP accounts but have not made any transactions. This information can help the bank identify inactive VIP customers and reach out to them to encourage account activity.
+
+   sql explanation: The query retrieves the first name, last name, account balance, and positive interest rate for VIP customers who have not made any transactions. It joins the Customer, Rel5, Account, and VIP tables to link customers to their VIP accounts. The WHERE clause uses a NOT EXISTS subquery to filter customers who have no transactions associated with their accounts. The results are ordered by customer last name and first name.
+
+   syntax explanation: The query uses the SELECT statement to retrieve specific columns from the Customer, Account, and VIP tables. It includes JOIN operations to link customers to their VIP accounts through the Rel5 table. The WHERE clause uses a NOT EXISTS subquery to filter customers who have no transactions associated with their accounts. The results are ordered by customer last name and first name.
+
+   ```sql
+   SELECT c.FirstName, c.LastName, a.Balance, v.PositiveInterest
+   FROM Customer c JOIN Rel5 r ON c.CustomerID = r.CustomerID JOIN Account a ON r.AccountID = a.AccountID JOIN Vip v ON a.AccountID = v.AccountID
+   WHERE NOT EXISTS (
+       SELECT 1
+       FROM Transactions t
+       WHERE t.AccountID = a.AccountID
+   )
+   ORDER BY c.LastName, c.FirstName;
+   ```
+
+   file: [here](StageTwo/select4.sql)
 
 ### 2 delete
 
@@ -487,6 +524,8 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
    ```
 
    This query retrieves the CustomerID, FirstName, LastName, and the cumulative balance (CumulativeBalance) for customers whose cumulative balance across all their accounts exceeds the specified threshold (Cumulative Balance Threshold). The subquery calculates the cumulative balance by summing the balances of all accounts linked to the customer through the Rel5 table. The WHERE clause filters only those customers whose cumulative balance exceeds the threshold.
+
+   file: [here](StageTwo/select4.sql)
 
 ## constraints
 
