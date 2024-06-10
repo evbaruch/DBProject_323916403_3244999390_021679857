@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2457
+Password=2954
 Database=
 DateFormat=
 CommitCount=0
@@ -12,22 +12,24 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=SYS
+Owner=
 Name=ACCOUNT
-Count=400..500
+Count=2000
 
 [Record]
 Name=ACCOUNTID
 Type=NUMBER
 Size=38
-Data=Sequence(100000, [1], [999999])
+Data=Sequence(100000, 1, 999999)
 Master=
 
 [Record]
 Name=BALANCE
 Type=NUMBER
 Size=32
-Data=Random(-50000, 100000)
+Data=SQL(
+=  SELECT ROUND(40000 + 40000 * DBMS_RANDOM.NORMAL) FROM dual
+=)
 Master=
 
 [Record]
@@ -49,6 +51,6 @@ Master=
 Name=BRANCHID
 Type=NUMBER
 Size=38
-Data=Sequence(100, 1, 999)
+Data=List(select branchid from branch) 
 Master=
 

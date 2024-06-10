@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2618
+Password=2160
 Database=
 DateFormat=
 CommitCount=0
@@ -12,9 +12,9 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=SYS
+Owner=
 Name=TRANSACTIONS
-Count=400..500
+Count=5000
 
 [Record]
 Name=TRANSACTIONID
@@ -34,7 +34,7 @@ Master=
 Name=AMOUNT
 Type=NUMBER
 Size=
-Data=Random(100, 10000)
+Data=Random(10, 10000)
 Master=
 
 [Record]
@@ -49,6 +49,6 @@ Master=
 Name=ACCOUNTID
 Type=NUMBER
 Size=38
-Data=Sequence(100000, [1], [999999])
+Data=List(select accountid from account) 
 Master=
 

@@ -4,7 +4,7 @@ Version=1
 
 [Preferences]
 Username=
-Password=2330
+Password=2024
 Database=
 DateFormat=
 CommitCount=0
@@ -12,9 +12,9 @@ CommitDelay=0
 InitScript=
 
 [Table]
-Owner=SYS
+Owner=
 Name=CUSTOMER
-Count=400
+Count=2000
 
 [Record]
 Name=CUSTOMERID
