@@ -8,6 +8,8 @@
 
 ## Table of Contents
 
+[Stage One](#stage-one)
+
 1. [Description of the Organization](#description-of-the-organization)
 
 2. [Entity-Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
@@ -46,6 +48,10 @@
 9. [Drop Table Script](#drop-table-script)
 
 10. [Backup and Test](#backup-and-test)
+
+[Stage Two](#stage-two)
+
+# Stage One
 
 ## Description of the Organization
 
@@ -142,7 +148,7 @@ The Entity-Relationship Diagram (ERD) for the Accounts wing of XYZ Bank illustra
 - The BlackList entity represents customers who have been blacklisted due to certain reasons.
 
   **Attributes:**
-  
+
   - Inherits all attributes from Customer.
   - **NegetiveInterest:** Interest rate applied to BlackList accounts.
   - **MinimumMinus:** Minimum balance allowed for BlackList accounts.
@@ -215,7 +221,6 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 | ---------- | ---------- | ----------- |
 | CustomerID | NUMBER(38) | NOT NULL    |
 | AccountID  | NUMBER(38) | NOT NULL    |
-
 
 ![part-one](StageOne/Images/Desc_part_1.png)
 ![part-two](StageOne/Images/Desc_part_2.png)
@@ -313,3 +318,67 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
 - Backup pde script:
   [here](StageOne/Scripts/backupPLSQL.pde)
+
+# Stage Two
+
+## alters 
+
+## parameterless queries
+
+### 4 select queries
+
+1. **Query 1:**
+
+This SQL query is designed to retrieve information about customers who have an account balance higher than the average balance of all accounts in the same branch. The story behind this query could be as follows:
+
+Imagine a bank with multiple branches across different locations. The bank wants to identify its wealthiest customers in each branch to offer them exclusive services or investment opportunities. To achieve this, the query performs the following operations:
+
+1. It joins multiple tables: `Customer`, `Rel5` (a relationship table), `Account`, and `Branch`. This allows the query to access information from all these tables simultaneously.
+2. The `WHERE` clause filters the results to include only those customers whose account balance is greater than the average balance of all accounts in the same branch.
+  a. It first calculates the average balance of accounts in each branch using a subquery (`SELECT AVG(a2.Balance) FROM Account a2 WHERE a2.BranchID = a.BranchID`).
+  b. Then, it compares the balance of each customer's account (`a.Balance`) with the calculated average balance for that branch.
+3. The selected columns include the customer's first name (`c.FirstName`), last name (`c.LastName`), account balance (`a.Balance`), the branch name (`b.BranchName`), and the branch address (`b.BranchAddress`).
+4. The `ORDER BY` clause sorts the results in descending order based on the account balance (`a.Balance DESC`), so that the customers with the highest balances appear first.
+
+By executing this query, the bank can obtain a list of its wealthiest customers for each branch, along with their account balances, branch names, and branch addresses. This information can be used to tailor personalized services, marketing campaigns, or investment opportunities for these high-value customers, potentially increasing customer satisfaction and revenue for the bank.
+
+The query demonstrates the power of SQL in combining data from multiple tables, filtering results based on specific conditions, and sorting the output in a desired order. It also showcases the use of subqueries, which allow for complex calculations and comparisons within the main query.
+
+```sql
+SELECT c.FirstName, c.LastName, a.Balance, b.BranchName, b.BranchAddress
+FROM  
+Customer c JOIN  Rel5 r ON c.CustomerID = r.CustomerID JOIN  Account a ON r.AccountID = a.AccountID JOIN Branch b ON a.BranchID = b.BranchID
+WHERE  a.Balance > (
+        SELECT AVG(a2.Balance)
+        FROM Account a2
+        WHERE a2.BranchID = a.BranchID 
+        )
+ORDER BY a.Balance DESC;
+```
+
+2. **Query 2:**
+
+3. **Query 3:**
+
+4. **Query 4:**
+
+### 2 delete
+
+### 2 update
+
+## parameterized queries
+
+## constraints
+
+1. **NOT NULL Constraint:**
+
+2. **UNIQUE Constraint:**
+
+3. **DEFAULT Constraint:**
+
+4. **CHECK Constraint:**
+
+
+## commits and rollbacks Explanation
+  Commits and rollbacks are used to manage transactions in the database.
+  A commit is used to save the changes made in a transaction, while a rollback is used to undo the changes made in a transaction. If a commit is executed, the changes are permanently saved in the database. If a rollback is executed, the changes are undone, and the database is restored to its previous state.
