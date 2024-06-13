@@ -674,7 +674,7 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    we already have the `NOT NULL` constraint on all the atrributes in the tables that are required to have a value.
 
-   ![image](StageTwo/Photos/Not_Null_Constraint.png)
+   ![image](StageTwo/Photos/Not_Null_Error.png)
 
 > trying to insert a record with a null value in a column with a NOT NULL constraint will result in an error, for example:
 
