@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION get_customer_details_from_account(p_account_id IN NUMBER)
+RETURN SYS_REFCURSOR
+IS
+    v_customer_details SYS_REFCURSOR;
+BEGIN
+    OPEN v_customer_details FOR
+        SELECT r.CustomerID, c.FirstName, c.LastName, (
+            SELECT COUNT(*) 
+            FROM Relationship 
+            WHERE CustomerID = r.CustomerID
+        ) AS linked_account_count
+        FROM Relationship r
+        JOIN Customer c ON r.CustomerID = c.CustomerID
+        WHERE r.AccountID = p_account_id
+        ORDER BY c.DateOfBirth ASC
+        FETCH FIRST 1 ROWS ONLY;
+
+    RETURN v_customer_details;
+END get_customer_details_from_account;
+/

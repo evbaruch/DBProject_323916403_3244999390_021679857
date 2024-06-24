@@ -1,0 +1,61 @@
+CREATE OR REPLACE PROCEDURE new_customer_and_transactions
+IS
+  v_customer_id NUMBER;
+  v_account_id NUMBER;
+  v_transactions SYS_REFCURSOR;
+  v_transaction_record Transactions%ROWTYPE;
+  v_total_amount NUMBER := 0;
+  v_transaction_count NUMBER := 0;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('Starting new_customer_and_transactions procedure...');
+  DBMS_OUTPUT.NEW_LINE;
+  
+  -- Create new customer and account
+  create_customer_and_account(
+    'John', 'Doe', TO_DATE('1990-01-01', 'YYYY-MM-DD'),
+    '123 Main St, City', 1234567890, 'john.doe@email.com',
+    1000, 1
+  );
+  
+  -- Get the newly created customer and account IDs
+  SELECT c.CustomerID, r.AccountID
+  INTO v_customer_id, v_account_id
+  FROM Customer c
+  JOIN Relationship r ON c.CustomerID = r.CustomerID
+  WHERE c.FirstName = 'John' AND c.LastName = 'Doe'
+  AND ROWNUM = 1;
+  
+  -- Get recent transactions
+  v_transactions := get_recent_transactions(v_account_id, 30);
+  
+  DBMS_OUTPUT.PUT_LINE('Recent transactions for the new account:');
+  LOOP
+    FETCH v_transactions INTO v_transaction_record;
+    EXIT WHEN v_transactions%NOTFOUND;
+    
+    v_total_amount := v_total_amount + v_transaction_record.Amount;
+    v_transaction_count := v_transaction_count + 1;
+    
+    DBMS_OUTPUT.PUT_LINE(
+      'Transaction ID: ' || v_transaction_record.TransactionID ||
+      ', Type: ' || v_transaction_record.TransactionType ||
+      ', Amount: $' || v_transaction_record.Amount ||
+      ', Date: ' || TO_CHAR(v_transaction_record.TransactionDate, 'YYYY-MM-DD')
+    );
+  END LOOP;
+  CLOSE v_transactions;
+  
+  DBMS_OUTPUT.NEW_LINE;
+  DBMS_OUTPUT.PUT_LINE('Transaction summary:');
+  DBMS_OUTPUT.PUT_LINE('Total number of transactions: ' || v_transaction_count);
+  DBMS_OUTPUT.PUT_LINE('Total amount of transactions: $' || v_total_amount);
+  DBMS_OUTPUT.PUT_LINE('Average transaction amount: $' || ROUND(v_total_amount / NULLIF(v_transaction_count, 0), 2));
+  
+  DBMS_OUTPUT.NEW_LINE;
+  DBMS_OUTPUT.PUT_LINE('new_customer_and_transactions procedure completed.');
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE('Error in new_customer_and_transactions: ' || SQLERRM);
+    ROLLBACK;
+END;
+/

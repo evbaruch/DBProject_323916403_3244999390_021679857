@@ -1,0 +1,8 @@
+CREATE OR REPLACE TRIGGER trg_generate_transaction_id
+BEFORE INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    -- Generate a unique ID using a sequence or another method
+    :NEW.TransactionID := COALESCE((SELECT MAX(TransactionID) + 1 FROM Transactions), 1);
+END;
+/

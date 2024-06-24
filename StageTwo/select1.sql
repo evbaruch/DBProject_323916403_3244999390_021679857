@@ -44,7 +44,7 @@ SELECT
 FROM 
     Customer c
 JOIN 
-    Rel5 r ON c.CustomerID = r.CustomerID
+    Relationship r ON c.CustomerID = r.CustomerID
 JOIN 
     Account a ON r.AccountID = a.AccountID
 JOIN 
