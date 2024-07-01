@@ -1531,6 +1531,11 @@ end;
 > this is the output of the test:
 > ![video](StageThree/Videos/get_recent_transactions.mp4)
 
+
+https://github.com/evbaruch/DBProject_323916403_3244999390_021679857/assets/116492422/3ab29c12-4068-4102-a873-d5ffb0bb2b84
+
+
+
 **Function 2: GetCustomerTotalBalance**
 
 > this is the test genereated for the function `GetCustomerTotalBalance`:
