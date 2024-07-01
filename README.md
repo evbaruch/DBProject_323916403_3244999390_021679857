@@ -86,8 +86,9 @@
    - [Procedures](#procedures)
    - [Triggers](#triggers)
    - [Mains](#mains)
-   
+
    </details>
+
 7. [Testing](#testing)
 8. [Backup](#backup)
 
@@ -1457,6 +1458,7 @@ END;
 **Function 1: GetRecentTransactions**
 
 > this is the test genereated for the function `GetRecentTransactions`:
+
 ```sql
 begin
   -- Call the function
@@ -1466,11 +1468,12 @@ end;
 ```
 
 > this is the output of the test:
-![video](StageThree/Videos/get_recent_transactions.mp4)
+> ![video](StageThree/Videos/get_recent_transactions.mp4)
 
 **Function 2: GetCustomerTotalBalance**
 
 > this is the test genereated for the function `GetCustomerTotalBalance`:
+
 ```sql
 begin
   -- Call the function
@@ -1487,6 +1490,7 @@ end;
 **Function 3: GetCustomerDetailsFromAccount**
 
 > this is the test genereated for the function `GetCustomerDetailsFromAccount`:
+
 ```sql
 begin
   -- Call the function
@@ -1495,12 +1499,12 @@ end;
 ```
 
 > this is the output of the test:
-![here](StageThree/Videos/OutPut%20Get%20details%20Customer%20.png)
-
+> ![here](StageThree/Videos/OutPut%20Get%20details%20Customer%20.png)
 
 **Procedure 1: CreateCustomerAndAccount**
 
 > this is the test genereated for the procedure `CreateCustomerAndAccount`:
+
 ```sql
 begin
   -- Call the procedure
@@ -1519,11 +1523,10 @@ end;
 
 ![image](StageThree/Videos/Create%20Customer%20-%20Account.png)
 
-
-
 **Procedure 2: TransferMoney**
 
 > this is the test genereated for the procedure `TransferMoney`:
+
 ```sql
 begin
   -- Call the procedure
@@ -1534,11 +1537,12 @@ end;
 ```
 
 > this is the output of the test:
-![image](StageThree/Videos/Transfer%20Money.png)
+> ![image](StageThree/Videos/Transfer%20Money.png)
 
 **Main 1: new_customer_and_transactions**
 
 > this is the test genereated for the procedure `new_customer_and_transactions`:
+
 ```sql
 begin
   -- Call the procedure
@@ -1560,6 +1564,7 @@ end;
 **Main 2: main_transfer_and_balance**
 
 > this is the test genereated for the procedure `main_transfer_and_balance`:
+
 ```sql
 begin
   -- Call the procedure
@@ -1570,12 +1575,11 @@ end;
 ```
 
 > this is the output of the test:
-![image](StageThree/Videos/Transfer%20and%20balence%20.png)
-
+> ![image](StageThree/Videos/Transfer%20and%20balence%20.png)
 
 ## backup
 
 the backup file is [here](StageThree/backupSql.sql)
 
-in Yehuda's repository 
+in Yehuda's repository
 ![here](StageThree/Videos/photo_2024-07-01_14-27-18.jpg)
