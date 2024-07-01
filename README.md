@@ -1498,3 +1498,80 @@ end;
 ![here](StageThree/Videos/OutPut%20Get%20details%20Customer%20.png)
 
 
+**Procedure 1: CreateCustomerAndAccount**
+
+> this is the test genereated for the procedure `CreateCustomerAndAccount`:
+```sql
+begin
+  -- Call the procedure
+  create_customer_and_account(p_first_name => :p_first_name,
+                              p_last_name => :p_last_name,
+                              p_dob => :p_dob,
+                              p_address => :p_address,
+                              p_contact_number => :p_contact_number,
+                              p_email => :p_email,
+                              p_initial_deposit => :p_initial_deposit,
+                              p_branch_id => :p_branch_id);
+end;
+```
+
+> this is the output of the test:
+
+![image](StageThree/Videos/Create%20Customer%20-%20Account.png)
+
+
+
+**Procedure 2: TransferMoney**
+
+> this is the test genereated for the procedure `TransferMoney`:
+```sql
+begin
+  -- Call the procedure
+  transfer_money(p_from_account => :p_from_account,
+                 p_to_account => :p_to_account,
+                 p_amount => :p_amount);
+end;
+```
+
+> this is the output of the test:
+![image](StageThree/Videos/Transfer%20Money.png)
+
+**Main 1: new_customer_and_transactions**
+
+> this is the test genereated for the procedure `new_customer_and_transactions`:
+```sql
+begin
+  -- Call the procedure
+  new_customer_and_transactions(p_first_name => :p_first_name,
+                                p_last_name => :p_last_name,
+                                p_dob => :p_dob,
+                                p_address => :p_address,
+                                p_phone => :p_phone,
+                                p_email => :p_email,
+                                p_initial_deposit => :p_initial_deposit,
+                                p_branch_id => :p_branch_id);
+end;
+```
+
+> this is the output of the test:
+
+![image](StageThree/Videos/new%20account%20and%20transaction.png)
+
+**Main 2: main_transfer_and_balance**
+
+> this is the test genereated for the procedure `main_transfer_and_balance`:
+```sql
+begin
+  -- Call the procedure
+  main_transfer_and_balance(p_transfer_amount => :p_transfer_amount,
+                            p_from_account_id => :p_from_account_id,
+                            p_to_account_id => :p_to_account_id);
+end;
+```
+
+> this is the output of the test:
+![image](StageThree/Videos/Transfer%20and%20balence%20.png)
+
+
+## backup
+
