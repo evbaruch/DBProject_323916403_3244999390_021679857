@@ -680,7 +680,7 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
       EXISTS (
          SELECT /*+ PARALLEL(a, 4) */
          1
-         FROM Account  a
+         FROM Account a
          WHERE a.AccountID = bl.AccountID
          AND a.Balance < -&<name="Negative Balance Threshold" type="float" hint="Enter the negative balance threshold">
       );
