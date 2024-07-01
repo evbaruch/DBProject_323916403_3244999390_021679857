@@ -1,0 +1,7 @@
+CREATE OR REPLACE TRIGGER trg_generate_branch_id
+BEFORE INSERT ON Branch
+FOR EACH ROW
+BEGIN
+    SELECT COALESCE(MAX(BranchID), 0) + 1 INTO :NEW.BranchID FROM Branch;
+END;
+/
