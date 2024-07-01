@@ -1458,3 +1458,43 @@ END;
 
 > this is the test genereated for the function `GetRecentTransactions`:
 ```sql
+begin
+  -- Call the function
+  :result := get_recent_transactions(p_account_id => :p_account_id,
+                                     p_days => :p_days);
+end;
+```
+
+> this is the output of the test:
+![video](StageThree/Videos/get_recent_transactions.mp4)
+
+**Function 2: GetCustomerTotalBalance**
+
+> this is the test genereated for the function `GetCustomerTotalBalance`:
+```sql
+begin
+  -- Call the function
+  :result := get_customer_total_balance(p_customer_id => :p_customer_id);
+end;
+```
+
+> this is the output of the test:
+
+![image](StageThree/Videos/Get%20Customer%20Total%20Balance%20Script.png)
+
+![image](StageThree/Videos/Get%20Customer%20Total%20Balance.png)
+
+**Function 3: GetCustomerDetailsFromAccount**
+
+> this is the test genereated for the function `GetCustomerDetailsFromAccount`:
+```sql
+begin
+  -- Call the function
+  :result := get_customer_details_from_account(p_account_id => :p_account_id);
+end;
+```
+
+> this is the output of the test:
+![here](StageThree/Videos/OutPut%20Get%20details%20Customer%20.png)
+
+
