@@ -403,9 +403,9 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    Story: The bank wants to generate a report of transactions made by customers within the last 24 months. This report should include the customer's first name, last name, transaction date, transaction type, and transaction amount. The bank can use this information to analyze customer transaction patterns and identify trends.
 
-   sql explanation: The query retrieves the first name, last name, transaction date, transaction type, and amount for transactions made by customers within the last 24 months. It joins the Transactions, Account, Rel5, and Customer tables to link transactions to customers. The WHERE clause filters transactions based on the transaction date falling within the specified date range. The results are ordered by customer last name, first name, and transaction date in descending order.
+   sql explanation: The query retrieves the first name, last name, transaction date, transaction type, and amount for transactions made by customers within the last 24 months. It joins the Transactions, Account, Relationship, and Customer tables to link transactions to customers. The WHERE clause filters transactions based on the transaction date falling within the specified date range. The results are ordered by customer last name, first name, and transaction date in descending order.
 
-   syntax explanation: The query uses the SELECT statement to retrieve specific columns from the Transactions, Account, Rel5, and Customer tables. It includes JOIN operations to link transactions to customers through the Account and Rel5 tables. The WHERE clause filters transactions based on the transaction date falling within the last 24 months. The results are ordered by customer last name, first name, and transaction date in descending order.
+   syntax explanation: The query uses the SELECT statement to retrieve specific columns from the Transactions, Account, Relationship, and Customer tables. It includes JOIN operations to link transactions to customers through the Account and Relationship tables. The WHERE clause filters transactions based on the transaction date falling within the last 24 months. The results are ordered by customer last name, first name, and transaction date in descending order.
 
    ```sql
    SELECT  c.FirstName, c.LastName, t.TransactionDate, t.TransactionType, t.Amount
@@ -436,9 +436,9 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
 
    Story: The bank wants to identify customers who have VIP accounts but have not made any transactions. This information can help the bank identify inactive VIP customers and reach out to them to encourage account activity.
 
-   sql explanation: The query retrieves the first name, last name, account balance, and positive interest rate for VIP customers who have not made any transactions. It joins the Customer, Rel5, Account, and VIP tables to link customers to their VIP accounts. The WHERE clause uses a NOT EXISTS subquery to filter customers who have no transactions associated with their accounts. The results are ordered by customer last name and first name.
+   sql explanation: The query retrieves the first name, last name, account balance, and positive interest rate for VIP customers who have not made any transactions. It joins the Customer, Relationship, Account, and VIP tables to link customers to their VIP accounts. The WHERE clause uses a NOT EXISTS subquery to filter customers who have no transactions associated with their accounts. The results are ordered by customer last name and first name.
 
-   syntax explanation: The query uses the SELECT statement to retrieve specific columns from the Customer, Account, and VIP tables. It includes JOIN operations to link customers to their VIP accounts through the Rel5 table. The WHERE clause uses a NOT EXISTS subquery to filter customers who have no transactions associated with their accounts. The results are ordered by customer last name and first name.
+   syntax explanation: The query uses the SELECT statement to retrieve specific columns from the Customer, Account, and VIP tables. It includes JOIN operations to link customers to their VIP accounts through the Relationship table. The WHERE clause uses a NOT EXISTS subquery to filter customers who have no transactions associated with their accounts. The results are ordered by customer last name and first name.
 
    ```sql
    SELECT c.FirstName, c.LastName, a.Balance, v.PositiveInterest
@@ -689,7 +689,7 @@ The Data Structure Diagram (DSD) is derived from the Entity-Relationship Diagram
    ![image](StageTwo/Photos/Param4RunTime.png)
    ![image](StageTwo/Photos/Param4Output.png)
 
-   This query retrieves the CustomerID, FirstName, LastName, and the cumulative balance (CumulativeBalance) for customers whose cumulative balance across all their accounts exceeds the specified threshold (Cumulative Balance Threshold). The subquery calculates the cumulative balance by summing the balances of all accounts linked to the customer through the Rel5 table. The WHERE clause filters only those customers whose cumulative balance exceeds the threshold.
+   This query retrieves the CustomerID, FirstName, LastName, and the cumulative balance (CumulativeBalance) for customers whose cumulative balance across all their accounts exceeds the specified threshold (Cumulative Balance Threshold). The subquery calculates the cumulative balance by summing the balances of all accounts linked to the customer through the Relationship table. The WHERE clause filters only those customers whose cumulative balance exceeds the threshold.
 
    file: [here](StageTwo/ParamsQueries.sql)
 
