@@ -77,8 +77,8 @@
       </details>
 [StageThree](#stage-three)
 
-5. [General Description](#general-description)
-6. [Code](#code)
+1. [General Description](#general-description)
+2. [Code](#code)
    <details>
    <summary>Subsections</summary>
 
@@ -89,8 +89,22 @@
 
    </details>
 
-7. [Testing](#testing)
-8. [Backup](#backup)
+3. [Testing](#testing)
+4. [Backup](#backup)
+
+[StageFour](#stage-four)
+
+1. [reverse engineering from backup](#reverse-engineering-from-backup)
+
+2. [ERD Integration](#erd-integration)
+
+3. [New Tables Connection](#new-tables-connection)
+
+4. [Tables Integration](#tables-integration)
+
+5. [Views](#views)
+
+6. [Views' Queries](#views-'--queries)
 
 # Stage One
 
@@ -1644,3 +1658,95 @@ the backup file is [here](StageThree/backupSql.sql)
 
 in Yehuda's repository
 ![here](StageThree/Videos/photo_2024-07-01_14-27-18.jpg)
+
+
+# Stage Four
+
+**Integrating** 
+
+## reverse engineering from backup
+
+the backup file we got from the secund division [here](StageFour/backup-BankSecundDivision.sql) is used to reverse engineer the database and create the tables, constraints, and relationships.
+
+**Steps:**
+1. **Create DSD based on the backup file:**
+
+   - Open ERD Plus and create a new DSD.
+   - table by table, create the tables, columns, and constraints based on the backup file.
+    - create the relationships between the tables based on the foreign keys in the backup file.
+    - create the primary and foreign key constraints based on the relationships.
+
+    the DSD created based on the backup file is as follows:
+    ![image](StageFour/DSD.jpg)
+    [file](StageFour/dsd%20-%20BankSecundDivision.erdplus)
+
+    ***the raletionships between the tables are determined based on the foreign keys in the backup file.***
+
+    **images and explanation to our design:**
+
+    > Human Resource Management (HRM):
+
+    ![image](StageFour/HRM.jpg)
+    ![image](StageFour/HPM_Plus.jpg)
+    based on that we created the following table Human Resource Management (HRM) as such:
+    ![image](StageFour/HRM-dsd.png)
+
+
+    > Attendance:
+
+    ![image](StageFour/Attend.jpg)
+    based on that we created the following table Attendance as such:
+    ![image](StageFour/Attend%20-%20dsd.png)
+
+    > Emploee:
+
+    ![image](StageFour/Emp.jpg)
+    ![image](StageFour/Emp_Plus.jpg)
+    Based on that we created the following table Emploee as such:
+    ![image](StageFour/Emp-dsd.png)
+
+    > Position:
+
+    ![image](StageFour/Position.jpg)
+    Based on that we created the following table Position as such:
+
+    ![image](StageFour/Position-dsd.png)
+
+    > Department:
+
+    ![image](StageFour/Dep.jpg)
+    Based on that we created the following table Department as such:
+    ![image](StageFour/Dep-dsd.png)
+
+    > Development:
+
+    ![image](StageFour/Dev.jpg)
+    
+    Based on that we created the following table Development as such:
+    ![image](StageFour/Dev-dsd.png)
+
+    **Note:** 
+    in all the tables the foreign keys are added only after the tables are connected to each other.
+
+2. **Create the ERD based on the DSD:**
+
+   - Open ERD Plus and create a new ERD.
+   - Table by table, create the tables, columns, and relationships based on the DSD.
+   - create the relationships between the tables based on the knownlodge of the database structure.
+
+    the ERD created based on the DSD is as follows:
+    ![image](StageFour/ERD%20-%20BankSecundDivision%20Image.png)
+    [file](StageFour/ERD%20-%20BankSecundDivision.erdplus)
+
+    the roles of the tables are as follows:
+    ![here](StageFour/Table-creation-MTM.jpg)
+    ![here](StageFour/Table-creation-MTM-Self.jpg)
+    ![here](StageFour/Table-creation-OTM-n.c.jpg)
+    ![here](StageFour/Table-creation-OTM-curve.jpg)
+    ![here](StageFour/Table-creation-Inheritance.jpg)
+    
+    we can see that there is no tables for connecting as expected if there is a many-to-many relationship between two tables.
+    hance we can see that the tables are connected to each other in a one-to-many relationship.
+    the diraction of the relationship is determined based on the foreign key in the table.
+
+## New Tables Connection
