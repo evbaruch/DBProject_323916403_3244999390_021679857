@@ -1,0 +1,54 @@
+CREATE OR REPLACE VIEW vw_EmployeeDepartment AS
+SELECT
+    e.EmployeeID,
+    e.First_Name,
+    e.Last_Name,
+    d.departmentName,
+    p.PositionsName,
+    e.salary,
+    b.BranchName  -- Added BranchName to the view
+FROM
+    Employee e
+JOIN
+    department d ON e.DepartmentID = d.departmentID
+JOIN
+    Positions p ON e.PositionID = p.PositionsID
+JOIN
+    Branch b ON e.branchid = b.BranchID;  -- Join with Branch table to include branch information
+/
+
+
+-- Query: Count the number of employees in each department
+SELECT 
+    departmentName, 
+    COUNT(EmployeeID) AS NumberOfEmployees
+FROM 
+    vw_EmployeeDepartment
+GROUP BY 
+    departmentName
+ORDER BY 
+    NumberOfEmployees DESC;
+    
+    
+-- Query: Count the number of employees in each position
+SELECT 
+    PositionsName, 
+    COUNT(EmployeeID) AS NumberOfEmployees
+FROM 
+    vw_EmployeeDepartment
+GROUP BY 
+    PositionsName
+ORDER BY 
+    NumberOfEmployees DESC;
+    
+-- Query: Count the number of employees in each branch
+SELECT 
+    BranchName, 
+    COUNT(EmployeeID) AS NumberOfEmployees
+FROM 
+    vw_EmployeeDepartment
+GROUP BY 
+    BranchName
+ORDER BY 
+    NumberOfEmployees DESC;
+
