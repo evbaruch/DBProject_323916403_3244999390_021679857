@@ -91,3 +91,34 @@ GROUP BY
 ORDER BY 
     NumberOfCustomers;
 /
+
+-- Query: to see a specific customer's account details
+--
+-- Purpose:
+-- This query retrieves the account details of a specific customer based on the customer's ID.
+--
+-- Parameters:
+--   - CustomerID: The unique identifier of the customer whose account details are to be retrieved.
+--
+-- Columns:
+--   - CustomerID: Unique identifier for the customer from the vw_CustomerAccountDetails view.
+--   - FirstName: Customer's first name from the vw_CustomerAccountDetails view.
+--   - LastName: Customer's last name from the vw_CustomerAccountDetails view.
+--   - AccountID: Unique identifier for the account from the vw_CustomerAccountDetails view.
+--   - Balance: Current balance of the account from the vw_CustomerAccountDetails view.
+--   - AccountStatus: Status of the account (e.g., active, inactive) from the vw_CustomerAccountDetails view.
+--   - BranchName: Name of the branch where the account is held from the vw_CustomerAccountDetails view.
+--   - BranchAddress: Address of the branch from the vw_CustomerAccountDetails view.
+SELECT 
+    CustomerID,
+    FirstName,
+    LastName,
+    AccountID,
+    Balance,
+    AccountStatus,
+    BranchName,
+    BranchAddress
+FROM
+    vw_CustomerAccountDetails
+WHERE
+    CustomerID = &<name= "CustomerID" list="select distinct CustomerID from vw_CustomerAccountDetails order by CustomerID" type="number" hint="Enter the Customer ID" multiselect="yes">;

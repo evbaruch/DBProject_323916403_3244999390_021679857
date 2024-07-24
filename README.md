@@ -51,46 +51,47 @@
 
 [Stage Two](#stage-two)
 
-1. [Alters](#alters)
+1.  [Alters](#alters)
 
-2. [Parameterless Queries](#parameterless-queries)
-   <details>
-   <summary>Subsections</summary>
+2.  [Parameterless Queries](#parameterless-queries)
+    <details>
+    <summary>Subsections</summary>
 
-   - [4 Select Queries](#4-select-queries)
-   - [2 Delete Queries](#2-delete)
-   - [2 Update Queries](#2-update)
+    - [4 Select Queries](#4-select-queries)
+    - [2 Delete Queries](#2-delete)
+    - [2 Update Queries](#2-update)
 
-   </details>
+    </details>
 
-3. [Parameterized Queries](#parameterized-queries)
+3.  [Parameterized Queries](#parameterized-queries)
 
-4. [Constraints](#constraints)
-      <details>
-      <summary>Subsections</summary>
+4.  [Constraints](#constraints)
+    <details>
+    <summary>Subsections</summary>
 
-   - [NOT NULL Constraint](#not-null-constraint)
-   - [UNIQUE Constraint](#unique-constraint)
-   - [DEFAULT Constraint](#default-constraint)
-   - [CHECK Constraint](#check-constraint)
+    - [NOT NULL Constraint](#not-null-constraint)
+    - [UNIQUE Constraint](#unique-constraint)
+    - [DEFAULT Constraint](#default-constraint)
+    - [CHECK Constraint](#check-constraint)
 
-      </details>
-[StageThree](#stage-three)
+            </details>
 
-1. [General Description](#general-description)
-2. [Code](#code)
-   <details>
-   <summary>Subsections</summary>
+      [StageThree](#stage-three)
 
-   - [Functions](#functions)
-   - [Procedures](#procedures)
-   - [Triggers](#triggers)
-   - [Mains](#mains)
+5.  [General Description](#general-description)
+6.  [Code](#code)
+    <details>
+    <summary>Subsections</summary>
 
-   </details>
+    - [Functions](#functions)
+    - [Procedures](#procedures)
+    - [Triggers](#triggers)
+    - [Mains](#mains)
 
-3. [Testing](#testing)
-4. [Backup](#backup)
+    </details>
+
+7.  [Testing](#testing)
+8.  [Backup](#backup)
 
 [StageFour](#stage-four)
 
@@ -1543,10 +1544,7 @@ end;
 > this is the output of the test:
 > ![video](StageThree/Videos/get_recent_transactions.mp4)
 
-
 https://github.com/evbaruch/DBProject_323916403_3244999390_021679857/assets/116492422/3ab29c12-4068-4102-a873-d5ffb0bb2b84
-
-
 
 **Function 2: GetCustomerTotalBalance**
 
@@ -1662,74 +1660,73 @@ the backup file is [here](StageThree/backupSql.sql)
 in Yehuda's repository
 ![here](StageThree/Videos/photo_2024-07-01_14-27-18.jpg)
 
-
 # Stage Four
 
-**Integrating** 
+**Integrating**
 
 ## reverse engineering from backup
 
 the backup file we got from the secund division [here](StageFour/backup-BankSecundDivision.sql) is used to reverse engineer the database and create the tables, constraints, and relationships.
 
 **Steps:**
+
 1. **Create DSD based on the backup file:**
 
    - Open ERD Plus and create a new DSD.
    - table by table, create the tables, columns, and constraints based on the backup file.
-    - create the relationships between the tables based on the foreign keys in the backup file.
-    - create the primary and foreign key constraints based on the relationships.
+   - create the relationships between the tables based on the foreign keys in the backup file.
+   - create the primary and foreign key constraints based on the relationships.
 
-    the DSD created based on the backup file is as follows:
-    ![image](StageFour/DSD.jpg)
-    [file](StageFour/dsd%20-%20BankSecundDivision.erdplus)
+   the DSD created based on the backup file is as follows:
+   ![image](StageFour/DSD.jpg)
+   [file](StageFour/dsd%20-%20BankSecundDivision.erdplus)
 
-    ***the raletionships between the tables are determined based on the foreign keys in the backup file.***
+   **_the raletionships between the tables are determined based on the foreign keys in the backup file._**
 
-    **images and explanation to our design:**
+   **images and explanation to our design:**
 
-    > Human Resource Management (HRM):
+   > Human Resource Management (HRM):
 
-    ![image](StageFour/HRM.jpg)
-    ![image](StageFour/HPM_Plus.jpg)
-    based on that we created the following table Human Resource Management (HRM) as such:
-    ![image](StageFour/HRM-dsd.png)
+   ![image](StageFour/HRM.jpg)
+   ![image](StageFour/HPM_Plus.jpg)
+   based on that we created the following table Human Resource Management (HRM) as such:
+   ![image](StageFour/HRM-dsd.png)
 
+   > Attendance:
 
-    > Attendance:
+   ![image](StageFour/Attend.jpg)
+   based on that we created the following table Attendance as such:
+   ![image](StageFour/Attend%20-%20dsd.png)
 
-    ![image](StageFour/Attend.jpg)
-    based on that we created the following table Attendance as such:
-    ![image](StageFour/Attend%20-%20dsd.png)
+   > Emploee:
 
-    > Emploee:
+   ![image](StageFour/Emp.jpg)
+   ![image](StageFour/Emp_Plus.jpg)
+   Based on that we created the following table Emploee as such:
+   ![image](StageFour/Emp-dsd.png)
 
-    ![image](StageFour/Emp.jpg)
-    ![image](StageFour/Emp_Plus.jpg)
-    Based on that we created the following table Emploee as such:
-    ![image](StageFour/Emp-dsd.png)
+   > Position:
 
-    > Position:
+   ![image](StageFour/Position.jpg)
+   Based on that we created the following table Position as such:
 
-    ![image](StageFour/Position.jpg)
-    Based on that we created the following table Position as such:
+   ![image](StageFour/Position-dsd.png)
 
-    ![image](StageFour/Position-dsd.png)
+   > Department:
 
-    > Department:
+   ![image](StageFour/Dep.jpg)
+   Based on that we created the following table Department as such:
+   ![image](StageFour/Dep-dsd.png)
 
-    ![image](StageFour/Dep.jpg)
-    Based on that we created the following table Department as such:
-    ![image](StageFour/Dep-dsd.png)
+   > Development:
 
-    > Development:
+   ![image](StageFour/Dev.jpg)
 
-    ![image](StageFour/Dev.jpg)
+   Based on that we created the following table Development as such:
+   ![image](StageFour/Dev-dsd.png)
 
-    Based on that we created the following table Development as such:
-    ![image](StageFour/Dev-dsd.png)
-
-    **Note:** 
-    in all the tables the foreign keys are added only after the tables are connected to each other.
+   **Note:**
+   in all the tables the foreign keys are added only after the tables are connected to each other.
 
 2. **Create the ERD based on the DSD:**
 
@@ -1737,20 +1734,20 @@ the backup file we got from the secund division [here](StageFour/backup-BankSecu
    - Table by table, create the tables, columns, and relationships based on the DSD.
    - create the relationships between the tables based on the knownlodge of the database structure.
 
-    the ERD created based on the DSD is as follows:
-    ![image](StageFour/ERD%20-%20BankSecundDivision%20Image.png)
-    [file](StageFour/ERD%20-%20BankSecundDivision.erdplus)
+   the ERD created based on the DSD is as follows:
+   ![image](StageFour/ERD%20-%20BankSecundDivision%20Image.png)
+   [file](StageFour/ERD%20-%20BankSecundDivision.erdplus)
 
-    the roles of the tables are as follows:
-    ![here](StageFour/Table-creation-MTM.jpg)
-    ![here](StageFour/Table-creation-MTM-Self.jpg)
-    ![here](StageFour/Table-creation-OTM-n.c.jpg)
-    ![here](StageFour/Table-creation-OTM-curve.jpg)
-    ![here](StageFour/Table-creation-Inheritance.jpg)
-    
-    we can see that there is no tables for connecting as expected if there is a many-to-many relationship between two tables.
-    hance we can see that the tables are connected to each other in a one-to-many relationship.
-    the diraction of the relationship is determined based on the foreign key in the table.
+   the roles of the tables are as follows:
+   ![here](StageFour/Table-creation-MTM.jpg)
+   ![here](StageFour/Table-creation-MTM-Self.jpg)
+   ![here](StageFour/Table-creation-OTM-n.c.jpg)
+   ![here](StageFour/Table-creation-OTM-curve.jpg)
+   ![here](StageFour/Table-creation-Inheritance.jpg)
+
+   we can see that there is no tables for connecting as expected if there is a many-to-many relationship between two tables.
+   hance we can see that the tables are connected to each other in a one-to-many relationship.
+   the diraction of the relationship is determined based on the foreign key in the table.
 
 ## ERD Integration
 
@@ -1765,7 +1762,6 @@ and so , as expexted, we have only a foreign key in the bank division that conne
 the employee table in the bank division has a foreign key that connects to the employee table in the HRM division.
 
 this is a work we have planed from day one, and now we utilize it.
-
 
 ## Tables Integration
 
@@ -1814,20 +1810,286 @@ BEGIN
     END LOOP;
 END;
 ```
+
 in this code we have done the following:
+
 1. **Disable constraints:**
    - we have disabled the constraints that are connected to the employee table.
 2. **Add branchid column to EMPLOYEE table:**
-    - we have added a new column to the employee table that will hold the branch id.
+   - we have added a new column to the employee table that will hold the branch id.
 3. **Add new foreign key constraint:**
-    - we have added a new foreign key constraint that connects the branch id to the branch table.
+   - we have added a new foreign key constraint that connects the branch id to the branch table.
 4. **Enable constraints again:**
-    - we have enabled the constraints that are connected to the employee table.
+   - we have enabled the constraints that are connected to the employee table.
 5. **Populate branchid column with random values from Branch table:**
-    - we have populated the branch id column with random values from the branch table.
+   - we have populated the branch id column with random values from the branch table.
 
 and so we have connected the bank division to the HRM division.
 
 ## Views
 
+> we would make 2 views to make an illusion for each division that they are working alone.
+
+** Account View:**
+
+```sql
+-- Create or Replace View: vw_CustomerAccountDetails
+--
+-- Purpose:
+-- This view consolidates customer details along with their account and branch information.
+-- It provides a comprehensive dataset combining customer information, account details, and branch information, which can be used for various analytical and reporting purposes.
+--
+-- Columns:
+--   - CustomerID: Unique identifier for each customer from the Customer table.
+--   - FirstName: Customer's first name from the Customer table.
+--   - LastName: Customer's last name from the Customer table.
+--   - AccountID: Unique identifier for each account from the Account table.
+--   - Balance: Current balance of the account from the Account table.
+--   - AccountStatus: Status of the account (e.g., active, inactive) from the Account table.
+--   - BranchName: Name of the branch where the account is held from the Branch table.
+--   - BranchAddress: Address of the branch from the Branch table.
+--
+-- Joins:
+--   - Customer (c) is joined with Rel5 (r) on CustomerID to link customers with their accounts.
+--   - Account (a) is joined with Rel5 (r) on AccountID to link accounts with their details.
+--   - Account (a) is joined with Branch (b) on BranchID to link accounts with their branch information.
+--
+-- The view provides a unified view of customer accounts and their associated branch details.
+CREATE OR REPLACE VIEW vw_CustomerAccountDetails AS
+SELECT
+    c.CustomerID,
+    c.FirstName,
+    c.LastName,
+    a.AccountID,
+    a.Balance,
+    a.AccountStatus,
+    b.BranchName,
+    b.BranchAddress
+FROM
+    Customer c
+JOIN
+    Rel5 r ON c.CustomerID = r.CustomerID
+JOIN
+    Account a ON r.AccountID = a.AccountID
+JOIN
+    Branch b ON a.BranchID = b.BranchID;
+/
+```
+
+**Employee View:**
+
+```sql
+-- Create or Replace View: vw_EmployeeDepartment
+--
+-- Purpose:
+-- This view consolidates employee details along with their department, position, and branch information.
+-- It provides a unified dataset that includes employee personal information, their department, position, and the branch they are associated with.
+--
+-- Columns:
+--   - EmployeeID: Unique identifier for each employee from the Employee table.
+--   - First_Name: Employee's first name from the Employee table.
+--   - Last_Name: Employee's last name from the Employee table.
+--   - departmentName: Name of the department from the department table.
+--   - PositionsName: Name of the employee's position from the Positions table.
+--   - salary: Employee's salary from the Employee table.
+--   - BranchName: Name of the branch where the employee works from the Branch table.
+--
+-- Joins:
+--   - Employee (e) is joined with department (d) on DepartmentID to get department details.
+--   - Employee (e) is joined with Positions (p) on PositionID to get position details.
+--   - Employee (e) is joined with Branch (b) on branchid to get branch details.
+--
+-- The view provides comprehensive information about employees, including their department, position, and branch.
+CREATE OR REPLACE VIEW vw_EmployeeDepartment AS
+SELECT
+    e.EmployeeID,
+    e.First_Name,
+    e.Last_Name,
+    d.departmentName,
+    p.PositionsName,
+    e.salary,
+    b.BranchName  -- Added BranchName to the view
+FROM
+    Employee e
+JOIN
+    department d ON e.DepartmentID = d.departmentID
+JOIN
+    Positions p ON e.PositionID = p.PositionsID
+JOIN
+    Branch b ON e.branchid = b.BranchID;  -- Join with Branch table to include branch information
+/
+```
+
 ## Views' Queries
+
+**Account View Queries:**
+
+```sql
+-- Query: Count the number of customers for each branch
+--
+-- Purpose:
+-- This query calculates the number of customers associated with each branch.
+-- It groups customers by their branch and counts how many customers are linked to each branch.
+--
+-- Columns:
+--   - BranchName: The name of the branch from the vw_CustomerAccountDetails view.
+--   - NumberOfCustomers: The total number of customers associated with each branch.
+--
+-- Grouping:
+--   - Results are grouped by BranchName to get the count of customers per branch.
+--
+-- Ordering:
+--   - Results are ordered by NumberOfCustomers in ascending order to show branches with fewer customers first.
+SELECT
+    BranchName,
+    COUNT(CustomerID) AS NumberOfCustomers
+FROM
+    vw_CustomerAccountDetails
+GROUP BY
+    BranchName
+ORDER BY
+    NumberOfCustomers;
+/
+```
+
+```sql
+-- Query: Count the number of customers for each account status
+--
+-- Purpose:
+-- This query calculates the number of customers for each account status.
+-- It helps in understanding the distribution of account statuses across customers.
+--
+-- Columns:
+--   - AccountStatus: The status of the account from the vw_CustomerAccountDetails view (e.g., active, inactive).
+--   - NumberOfCustomers: The total number of customers with each account status.
+--
+-- Grouping:
+--   - Results are grouped by AccountStatus to get the count of customers for each status.
+--
+-- Ordering:
+--   - Results are ordered by NumberOfCustomers in ascending order to display statuses with fewer customers first.
+SELECT
+    AccountStatus,
+    COUNT(CustomerID) AS NumberOfCustomers
+FROM
+    vw_CustomerAccountDetails
+GROUP BY
+    AccountStatus
+ORDER BY
+    NumberOfCustomers;
+/
+```
+
+```sql
+-- Query: to see a specific customer's account details
+--
+-- Purpose:
+-- This query retrieves the account details of a specific customer based on the customer's ID.
+--
+-- Parameters:
+--   - CustomerID: The unique identifier of the customer whose account details are to be retrieved.
+--
+-- Columns:
+--   - CustomerID: Unique identifier for the customer from the vw_CustomerAccountDetails view.
+--   - FirstName: Customer's first name from the vw_CustomerAccountDetails view.
+--   - LastName: Customer's last name from the vw_CustomerAccountDetails view.
+--   - AccountID: Unique identifier for the account from the vw_CustomerAccountDetails view.
+--   - Balance: Current balance of the account from the vw_CustomerAccountDetails view.
+--   - AccountStatus: Status of the account (e.g., active, inactive) from the vw_CustomerAccountDetails view.
+--   - BranchName: Name of the branch where the account is held from the vw_CustomerAccountDetails view.
+--   - BranchAddress: Address of the branch from the vw_CustomerAccountDetails view.
+SELECT
+    CustomerID,
+    FirstName,
+    LastName,
+    AccountID,
+    Balance,
+    AccountStatus,
+    BranchName,
+    BranchAddress
+FROM
+    vw_CustomerAccountDetails
+WHERE
+    CustomerID = &<name= "CustomerID" list="select distinct CustomerID from vw_CustomerAccountDetails order by CustomerID" type="number" hint="Enter the Customer ID" multiselect="yes">;
+```
+
+**Employee View Queries:**
+
+```sql
+-- Query: Count the number of employees in each department
+--
+-- Purpose:
+-- This query calculates the number of employees within each department.
+-- It groups employees by their department and counts how many employees are in each department.
+--
+-- Columns:
+--   - departmentName: The name of the department from the vw_EmployeeDepartment view.
+--   - NumberOfEmployees: The total number of employees in each department.
+--
+-- Grouping:
+--   - Results are grouped by departmentName to get the count of employees per department.
+--
+-- Ordering:
+--   - Results are ordered by NumberOfEmployees in descending order to display departments with the most employees first.
+SELECT
+    departmentName,
+    COUNT(EmployeeID) AS NumberOfEmployees
+FROM
+    vw_EmployeeDepartment
+GROUP BY
+    departmentName
+ORDER BY
+    NumberOfEmployees DESC;
+```
+
+```sql
+-- Query: Count the number of employees in each position
+--
+-- Purpose:
+-- This query calculates the number of employees in each position.
+-- It groups employees by their position and counts how many employees hold each position.
+--
+-- Columns:
+--   - PositionsName: The name of the position from the vw_EmployeeDepartment view.
+--   - NumberOfEmployees: The total number of employees in each position.
+--
+-- Grouping:
+--   - Results are grouped by PositionsName to get the count of employees per position.
+--
+-- Ordering:
+--   - Results are ordered by NumberOfEmployees in descending order to show positions with the most employees first.
+SELECT
+    PositionsName,
+    COUNT(EmployeeID) AS NumberOfEmployees
+FROM
+    vw_EmployeeDepartment
+GROUP BY
+    PositionsName
+ORDER BY
+    NumberOfEmployees DESC;
+
+-- Query: Count the number of employees in each branch
+--
+-- Purpose:
+-- This query calculates the number of employees in each branch.
+-- It groups employees by their branch and counts how many employees are associated with each branch.
+--
+-- Columns:
+--   - BranchName: The name of the branch from the vw_EmployeeDepartment view.
+--   - NumberOfEmployees: The total number of employees in each branch.
+--
+-- Grouping:
+--   - Results are grouped by BranchName to get the count of employees per branch.
+--
+-- Ordering:
+--   - Results are ordered by NumberOfEmployees in descending order to display branches with the most employees first.
+SELECT
+    BranchName,
+    COUNT(EmployeeID) AS NumberOfEmployees
+FROM
+    vw_EmployeeDepartment
+GROUP BY
+    BranchName
+ORDER BY
+    NumberOfEmployees DESC;
+```
