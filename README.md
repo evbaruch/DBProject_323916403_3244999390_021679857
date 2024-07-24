@@ -98,13 +98,11 @@
 
 2. [ERD Integration](#erd-integration)
 
-3. [New Tables Connection](#new-tables-connection)
+3. [Tables Integration](#tables-integration)
 
-4. [Tables Integration](#tables-integration)
+4. [Views](#views)
 
-5. [Views](#views)
-
-6. [Views' Queries](#views-'--queries)
+5. [Views' Queries](#views-queries)
 
 # Stage One
 
@@ -1726,7 +1724,7 @@ the backup file we got from the secund division [here](StageFour/backup-BankSecu
     > Development:
 
     ![image](StageFour/Dev.jpg)
-    
+
     Based on that we created the following table Development as such:
     ![image](StageFour/Dev-dsd.png)
 
@@ -1754,4 +1752,82 @@ the backup file we got from the secund division [here](StageFour/backup-BankSecu
     hance we can see that the tables are connected to each other in a one-to-many relationship.
     the diraction of the relationship is determined based on the foreign key in the table.
 
-## New Tables Connection
+## ERD Integration
+
+![image](StageFour/תמונה%20של%20WhatsApp‏%202024-07-22%20בשעה%2018.34.21_79e65c49.jpg)
+
+![image](StageFour/תמונה%20של%20WhatsApp‏%202024-07-22%20בשעה%2018.45.58_427a24da.jpg)
+
+we have been thought that a good integration starts with a good design, so we have sat down and thought about what each division needs and how we can connect them together gracefully.
+
+and so , as expexted, we have only a foreign key in the bank division that connects to the HRM division.
+
+the employee table in the bank division has a foreign key that connects to the employee table in the HRM division.
+
+this is a work we have planed from day one, and now we utilize it.
+
+
+## Tables Integration
+
+**Tables:**
+here is the sql code for the changes we have made to the tables in the bank division to integrate the HRM division:
+
+```sql
+-- Disable constraints
+ALTER TABLE EMPLOYEE DISABLE CONSTRAINT FK_EMPLOYEE_DEPARTMENT;
+ALTER TABLE EMPLOYEE DISABLE CONSTRAINT FK_EMPLOYEE_POSITION;
+
+-- Add branchid column to EMPLOYEE table
+ALTER TABLE EMPLOYEE
+ADD (branchid NUMBER(20));
+
+-- Add new foreign key constraint
+ALTER TABLE EMPLOYEE
+ADD CONSTRAINT FK_EMPLOYEE_BRANCH FOREIGN KEY (branchid)
+REFERENCES Branch (BranchID)
+ON DELETE CASCADE;
+
+-- Enable constraints again
+ALTER TABLE EMPLOYEE ENABLE CONSTRAINT FK_EMPLOYEE_DEPARTMENT;
+ALTER TABLE EMPLOYEE ENABLE CONSTRAINT FK_EMPLOYEE_POSITION;
+
+
+-- Populate branchid column with random values from Branch table
+DECLARE
+    CURSOR c_employee IS
+        SELECT employeeid FROM Employee;
+    v_branchid Branch.branchid%TYPE;
+BEGIN
+    FOR r_employee IN c_employee LOOP
+        SELECT branchid
+        INTO v_branchid
+        FROM (
+            SELECT branchid
+            FROM Branch
+            ORDER BY DBMS_RANDOM.VALUE
+        )
+        WHERE ROWNUM = 1;
+
+        UPDATE Employee
+        SET branchid = v_branchid
+        WHERE employeeid = r_employee.employeeid;
+    END LOOP;
+END;
+```
+in this code we have done the following:
+1. **Disable constraints:**
+   - we have disabled the constraints that are connected to the employee table.
+2. **Add branchid column to EMPLOYEE table:**
+    - we have added a new column to the employee table that will hold the branch id.
+3. **Add new foreign key constraint:**
+    - we have added a new foreign key constraint that connects the branch id to the branch table.
+4. **Enable constraints again:**
+    - we have enabled the constraints that are connected to the employee table.
+5. **Populate branchid column with random values from Branch table:**
+    - we have populated the branch id column with random values from the branch table.
+
+and so we have connected the bank division to the HRM division.
+
+## Views
+
+## Views' Queries
