@@ -1687,66 +1687,55 @@ the backup file we got from the secund division [here](StageFour/backup-BankSecu
 
    > Human Resource Management (HRM):
 
-   > ![image](StageFour/HRM.jpg)
-   > ![image](StageFour/HPM_Plus.jpg)
-   
-   
+   > ![image](StageFour/HRM.jpg) > ![image](StageFour/HPM_Plus.jpg)
+
    **based on that we created the following table Human Resource Management (HRM) as such:**
 
-  ![image](StageFour/HRM-dsd.png)
+![image](StageFour/HRM-dsd.png)
 
-   > Attendance:
+> Attendance:
 
-   ![image](StageFour/Attend.jpg)
-   
-   **based on that we created the following table Attendance as such:**
-  
+![image](StageFour/Attend.jpg)
 
-   ![image](StageFour/Attend%20-%20dsd.png)
+**based on that we created the following table Attendance as such:**
 
-   > Emploee:
+![image](StageFour/Attend%20-%20dsd.png)
 
-   ![image](StageFour/Emp.jpg)
-   ![image](StageFour/Emp_Plus.jpg)
+> Emploee:
 
+![image](StageFour/Emp.jpg)
+![image](StageFour/Emp_Plus.jpg)
 
-   **Based on that we created the following table Emploee as such:**
+**Based on that we created the following table Emploee as such:**
 
+![image](StageFour/Emp-dsd.png)
 
-   ![image](StageFour/Emp-dsd.png)
+> Position:
 
-   > Position:
+![image](StageFour/Position.jpg)
 
-   ![image](StageFour/Position.jpg)
+**Based on that we created the following table Position as such:**
 
+![image](StageFour/Position-dsd.png)
 
-   **Based on that we created the following table Position as such:**
+> Department:
 
+![image](StageFour/Dep.jpg)
 
-   ![image](StageFour/Position-dsd.png)
+**Based on that we created the following table Department as such:**
 
-   > Department:
+![image](StageFour/Dep-dsd.png)
 
-   ![image](StageFour/Dep.jpg)
+> Development:
 
+![image](StageFour/Dev.jpg)
 
-   **Based on that we created the following table Department as such:**
+**Based on that we created the following table Development as such:**
 
+![image](StageFour/Dev-dsd.png)
 
-   ![image](StageFour/Dep-dsd.png)
-
-   > Development:
-
-   ![image](StageFour/Dev.jpg)
-
-
-   **Based on that we created the following table Development as such:**
-
-
-   ![image](StageFour/Dev-dsd.png)
-
-   **Note:**
-   in all the tables the foreign keys are added only after the tables are connected to each other.
+**Note:**
+in all the tables the foreign keys are added only after the tables are connected to each other.
 
 2. **Create the ERD based on the DSD:**
 
@@ -1760,7 +1749,6 @@ the backup file we got from the secund division [here](StageFour/backup-BankSecu
 
    the roles of the tables are as follows:
 
-   
    ![here](StageFour/Table-creation-MTM.jpg)
    ![here](StageFour/Table-creation-MTM-Self.jpg)
    ![here](StageFour/Table-creation-OTM-n.c.jpg)
@@ -2032,7 +2020,7 @@ SELECT
 FROM
     vw_CustomerAccountDetails
 WHERE
-    CustomerID = &<name= "CustomerID" list="select distinct CustomerID from vw_CustomerAccountDetails order by CustomerID" type="number" hint="Enter the Customer ID" multiselect="yes">;
+    CustomerID = &<name= "CustomerID" list="select distinct CustomerID from vw_CustomerAccountDetails order by CustomerID" type="INTEGER" hint="Enter the Customer ID" multiselect="yes">;
 ```
 
 **Employee View Queries:**
