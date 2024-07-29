@@ -1687,42 +1687,62 @@ the backup file we got from the secund division [here](StageFour/backup-BankSecu
 
    > Human Resource Management (HRM):
 
-   ![image](StageFour/HRM.jpg)
-   ![image](StageFour/HPM_Plus.jpg)
-   based on that we created the following table Human Resource Management (HRM) as such:
-   ![image](StageFour/HRM-dsd.png)
+   > ![image](StageFour/HRM.jpg)
+   > ![image](StageFour/HPM_Plus.jpg)
+   
+   
+   **based on that we created the following table Human Resource Management (HRM) as such:**
+
+  ![image](StageFour/HRM-dsd.png)
 
    > Attendance:
 
    ![image](StageFour/Attend.jpg)
-   based on that we created the following table Attendance as such:
+   
+   **based on that we created the following table Attendance as such:**
+  
+
    ![image](StageFour/Attend%20-%20dsd.png)
 
    > Emploee:
 
    ![image](StageFour/Emp.jpg)
    ![image](StageFour/Emp_Plus.jpg)
-   Based on that we created the following table Emploee as such:
+
+
+   **Based on that we created the following table Emploee as such:**
+
+
    ![image](StageFour/Emp-dsd.png)
 
    > Position:
 
    ![image](StageFour/Position.jpg)
-   Based on that we created the following table Position as such:
+
+
+   **Based on that we created the following table Position as such:**
+
 
    ![image](StageFour/Position-dsd.png)
 
    > Department:
 
    ![image](StageFour/Dep.jpg)
-   Based on that we created the following table Department as such:
+
+
+   **Based on that we created the following table Department as such:**
+
+
    ![image](StageFour/Dep-dsd.png)
 
    > Development:
 
    ![image](StageFour/Dev.jpg)
 
-   Based on that we created the following table Development as such:
+
+   **Based on that we created the following table Development as such:**
+
+
    ![image](StageFour/Dev-dsd.png)
 
    **Note:**
@@ -1739,6 +1759,8 @@ the backup file we got from the secund division [here](StageFour/backup-BankSecu
    [file](StageFour/ERD%20-%20BankSecundDivision.erdplus)
 
    the roles of the tables are as follows:
+
+   
    ![here](StageFour/Table-creation-MTM.jpg)
    ![here](StageFour/Table-creation-MTM-Self.jpg)
    ![here](StageFour/Table-creation-OTM-n.c.jpg)
